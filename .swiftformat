@@ -1,0 +1,15 @@
+--swiftversion 6.0
+--symlinks ignore
+
+--xcodeindentation disabled
+--indent 4
+--ifdef no-indent
+--stripunusedargs closure-only
+--nospaceoperators ...,..<
+--importgrouping testable-top
+
+--disable trailingclosures
+--disable blankLinesAroundMark
+--disable conditionalAssignment
+--disable docComments
+--disable simplifyGenericConstraints

@@ -1,0 +1,58 @@
+{
+  "configurations" : [
+    {
+      "id" : "7B1BCBA9-73A4-4B77-ADF4-D08E8BC8F547",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:TestHost.xcodeproj",
+      "identifier" : "8B1AAE612F31600D00CDB346",
+      "name" : "TestHost"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "skippedTests" : {
+        "suites" : [
+          {
+            "name" : "GenericPasswordGetSkipUITests"
+          },
+          {
+            "name" : "GenericPasswordQuerySkipUITests"
+          },
+          {
+            "name" : "InternetPasswordSkipUITests"
+          },
+          {
+            "name" : "KeysApplicationPasswordTests"
+          },
+          {
+            "name" : "KeysSkipUITests"
+          },
+          {
+            "name" : "KeysWithUIConstraintsTests"
+          },
+          {
+            "name" : "SecureEnclaveKeysSkipUITests"
+          },
+          {
+            "name" : "SecureEnclaveKeysWithUIConstraintsTests"
+          }
+        ]
+      },
+      "target" : {
+        "containerPath" : "container:TestHost.xcodeproj",
+        "identifier" : "8B1AAE6E2F31600D00CDB346",
+        "name" : "TestHostTests"
+      }
+    }
+  ],
+  "version" : 2
+}

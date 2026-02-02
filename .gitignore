@@ -1,0 +1,30 @@
+.DS_Store
+.netrc
+
+# Build
+.build/
+.docc-build/
+DerivedData/
+*.bcsymbolmap
+
+# Xcode
+xcuserdata/
+*.xcworkspace/
+
+# Swift Package Manager
+.swiftpm/
+Package.resolved
+
+# IDEs
+.vscode/
+.idea/
+
+# Project configuration
+Local.xcconfig
+
+# AI agent instructions
+.claude/
+AGENTS.md
+Claude.md
+CLAUDE.md
+Requirements.md

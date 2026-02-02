@@ -1,0 +1,4 @@
+PRODUCT_DOMAIN =
+DEVELOPMENT_TEAM =
+
+#include? "Local.xcconfig"
