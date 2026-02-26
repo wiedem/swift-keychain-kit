@@ -76,6 +76,56 @@ struct AccessControlTests {
         let optimized = Keychain.AccessControl.optimizeFlags(testCase.input())
         #expect(optimized == testCase.expected)
     }
+
+    // MARK: - makeSecAccessControl Tests
+
+    @Test("makeSecAccessControl without constraints")
+    func makeSecAccessControlWithoutConstraints() throws {
+        let accessControl = Keychain.AccessControl.afterFirstUnlock
+        let result = try accessControl.makeSecAccessControl()
+
+        let expected = SecAccessControlCreateWithFlags(
+            nil, kSecAttrAccessibleAfterFirstUnlock, [], nil
+        )!
+        #expect(result == expected)
+    }
+
+    @Test("makeSecAccessControl with constraint")
+    func makeSecAccessControlWithConstraint() throws {
+        let accessControl = Keychain.AccessControl.make(
+            accessibility: .whenUnlockedThisDeviceOnly,
+            constraint: Keychain.AccessConstraint.devicePasscode
+        )
+        let result = try accessControl.makeSecAccessControl()
+
+        let expected = SecAccessControlCreateWithFlags(
+            nil, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .devicePasscode, nil
+        )!
+        #expect(result == expected)
+    }
+
+    @Test(
+        "makeSecAccessControl for all accessibility levels without constraints",
+        arguments: [
+            (Keychain.ItemAccessibility.whenUnlocked, kSecAttrAccessibleWhenUnlocked as String),
+            (.afterFirstUnlock, kSecAttrAccessibleAfterFirstUnlock as String),
+            (.whenUnlockedThisDeviceOnly, kSecAttrAccessibleWhenUnlockedThisDeviceOnly as String),
+            (.afterFirstUnlockThisDeviceOnly, kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly as String),
+            (.whenPasscodeSetThisDeviceOnly, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly as String),
+        ]
+    )
+    func makeSecAccessControlForAllAccessibilityLevels(
+        accessibility: Keychain.ItemAccessibility,
+        protection: String
+    ) throws {
+        let accessControl = Keychain.AccessControl.make(accessibility: accessibility)
+        let result = try accessControl.makeSecAccessControl()
+
+        let expected = SecAccessControlCreateWithFlags(
+            nil, protection as CFString, [], nil
+        )!
+        #expect(result == expected)
+    }
 }
 
 // MARK: - Test Cases
