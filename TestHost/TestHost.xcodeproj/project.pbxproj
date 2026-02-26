@@ -26,7 +26,7 @@
 /* Begin PBXFileReference section */
 		8B1AAE622F31600D00CDB346 /* TestHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B1AAE6F2F31600D00CDB346 /* TestHostTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestHostTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8B1AAEAF2F31649500CDB346 /* SwiftKeychainKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftKeychainKit; path = ../..; sourceTree = "<group>"; };
+		8B1AAEAF2F31649500CDB346 /* SwiftKeychainKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftKeychainKit; path = ..; sourceTree = "<group>"; };
 		8B53D9F12F336E570011DCBD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,7 +190,7 @@
 			mainGroup = 8B1AAE592F31600C00CDB346;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				8B53D9F62F336F440011DCBD /* XCLocalSwiftPackageReference "../../SwiftKeychainKit" */,
+				8B53D9F62F336F440011DCBD /* XCLocalSwiftPackageReference ".." */,
 				8B27F9842F37A3F10009B3E8 /* XCRemoteSwiftPackageReference "swift-certificates" */,
 			);
 			preferredProjectObjectVersion = 90;
@@ -561,9 +561,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		8B53D9F62F336F440011DCBD /* XCLocalSwiftPackageReference "../../SwiftKeychainKit" */ = {
+		8B53D9F62F336F440011DCBD /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../SwiftKeychainKit;
+			relativePath = ..;
 		};
 /* End XCLocalSwiftPackageReference section */
 
