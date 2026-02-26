@@ -1,6 +1,6 @@
 /// Errors that can occur when converting key representations to
 /// [SecKey](https://developer.apple.com/documentation/security/seckey).
-public enum SecKeyConversionError: Error {
+public enum SecKeyConversionError: Error, Sendable {
     /// The [SecKey](https://developer.apple.com/documentation/security/seckey) could not be created from the provided
     /// key representation.
     ///
@@ -10,4 +10,14 @@ public enum SecKeyConversionError: Error {
     ///
     /// - Parameter underlyingError: The error reported by the Security framework.
     case secKeyCreationFailed(underlyingError: any Error & Sendable)
+}
+
+extension SecKeyConversionError: CustomDebugStringConvertible {
+    /// A human-readable description of the error for debugging purposes.
+    public var debugDescription: String {
+        switch self {
+        case let .secKeyCreationFailed(underlyingError):
+            return "SecKey creation failed: \(String(reflecting: underlyingError))"
+        }
+    }
 }

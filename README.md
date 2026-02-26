@@ -25,33 +25,6 @@ The APIs are designed to guide you towards correct usage. Invalid attribute comb
 - ✅ **Swift 6** - Async/await and strict concurrency throughout
 - ✅ **Complete Documentation** - DocC documentation with guides and code examples
 
-## Installation
-
-### Swift Package Manager
-
-Add the dependency to your `Package.swift`:
-
-```swift
-dependencies: [
-    .package(url: "https://github.com/wiedem/swift-keychain-kit.git", from: "1.0.0")
-]
-```
-
-Then add it to your target:
-
-```swift
-.target(
-    name: "YourApp",
-    dependencies: [
-        .product(name: "SwiftKeychainKit", package: "swift-keychain-kit"),
-    ]
-)
-```
-
-Or add it in Xcode:
-1. **File → Add Package Dependencies...**
-2. Enter: `https://github.com/wiedem/swift-keychain-kit.git`
-
 ## Usage
 
 ### Generic Password
@@ -126,6 +99,33 @@ do {
 ```
 
 SwiftKeychainKit does not conform to `LocalizedError`, giving you full control over user-facing messages. See the [error handling guide](https://wiedem.github.io/swift-keychain-kit/documentation/swiftkeychainkit/errorhandling) for patterns including localization.
+
+## Installation
+
+### Swift Package Manager
+
+Add the dependency to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/wiedem/swift-keychain-kit.git", from: "1.0.0")
+]
+```
+
+Then add it to your target:
+
+```swift
+.target(
+    name: "YourApp",
+    dependencies: [
+        .product(name: "SwiftKeychainKit", package: "swift-keychain-kit"),
+    ]
+)
+```
+
+Or add it in Xcode:
+1. **File → Add Package Dependencies...**
+2. Enter: `https://github.com/wiedem/swift-keychain-kit.git`
 
 ## Requirements
 
