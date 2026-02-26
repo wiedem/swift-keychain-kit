@@ -24,6 +24,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Add DocC Plugin
+        run: swift package add-dependency https://github.com/apple/swift-docc-plugin --from 1.0.0
+
       - name: Build Documentation
         run: |
           swift package --allow-writing-to-directory ./docs \

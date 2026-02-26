@@ -16,7 +16,7 @@ The APIs are designed to guide you towards correct usage. Invalid attribute comb
 
 ## Features
 
-- ✅ **All Keychain Item Types** - Supports all item classes in the Data Protection Keychain
+- ✅ **Common Keychain types** - Passwords, cryptographic keys, certificates, and identities
 - ✅ **Sensitive Data Handling** - Designed to keep passwords and secrets safe in memory
 - ✅ **Access Control** - Restrict access with biometry, device passcode, or application passwords
 - ✅ **Secure Enclave** - Generate and use keys backed by dedicated security hardware
