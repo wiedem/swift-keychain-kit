@@ -1,4 +1,4 @@
-private import Security
+internal import Security
 
 public extension Keychain {
     /// Controls when and how a Keychain item can be accessed.
@@ -82,6 +82,17 @@ extension Keychain.AccessControl {
             secAccessControlCreateFlags: secAccessControlCreateFlags()
         )
         query[kSecAttrAccessControl as String] = secAccessControl
+    }
+}
+
+// MARK: - SecAccessControl Creation
+
+extension Keychain.AccessControl {
+    func makeSecAccessControl() throws(KeychainError) -> SecAccessControl {
+        try Self.makeSecAccessControl(
+            protection: accessibility.keychainValue,
+            secAccessControlCreateFlags: secAccessControlCreateFlags?() ?? []
+        )
     }
 }
 
