@@ -32,13 +32,10 @@ import SwiftKeychainKit
 // Generate a signing key
 let privateKey = P256.Signing.PrivateKey()
 
-// Convert to SecKey
-let secKey = try privateKey.makeSecKey()
-
 // Store in Keychain with a unique tag
 let tag = "com.example.myapp.signing-key".data(using: .utf8)!
 try await Keychain.Keys.addPrivateKey(
-    secKey,
+    privateKey,
     applicationTag: tag
 )
 ```
@@ -49,7 +46,6 @@ Require biometric authentication for key usage:
 
 ```swift
 let privateKey = P256.Signing.PrivateKey()
-let secKey = try privateKey.makeSecKey()
 
 // Require Face ID or Touch ID
 let accessControl = Keychain.AccessControl(
@@ -59,7 +55,7 @@ let accessControl = Keychain.AccessControl(
 
 let tag = "com.example.myapp.protected-key".data(using: .utf8)!
 try await Keychain.Keys.addPrivateKey(
-    secKey,
+    privateKey,
     applicationTag: tag,
     accessControl: accessControl
 )
@@ -71,11 +67,10 @@ Enable key synchronization across user's devices:
 
 ```swift
 let privateKey = P256.Signing.PrivateKey()
-let secKey = try privateKey.makeSecKey()
 
 let tag = "com.example.myapp.synced-key".data(using: .utf8)!
 try await Keychain.Keys.addPrivateKey(
-    secKey,
+    privateKey,
     applicationTag: tag,
     synchronizable: true
 )
@@ -91,13 +86,9 @@ Retrieve a key and convert it back to CryptoKit:
 let tag = "com.example.myapp.signing-key".data(using: .utf8)!
 
 // Query the Keychain
-if let secKey = try await Keychain.Keys.queryOne(
-    keyType: .ellipticCurve(.privateKey),
+if let privateKey: P256.Signing.PrivateKey = try await Keychain.Keys.queryOne(
     applicationTag: tag
 ) {
-    // Convert back to CryptoKit
-    let privateKey = try P256.Signing.PrivateKey(secKey: secKey)
-    
     // Use the key for signing
     let data = "Hello, World!".data(using: .utf8)!
     let signature = try privateKey.signature(for: data)
@@ -112,11 +103,9 @@ When a key is protected by biometrics, the system automatically prompts for auth
 let tag = "com.example.myapp.protected-key".data(using: .utf8)!
 
 // System shows Face ID / Touch ID prompt automatically
-if let secKey = try await Keychain.Keys.queryOne(
-    keyType: .ellipticCurve(.privateKey),
+if let privateKey: P256.Signing.PrivateKey = try await Keychain.Keys.queryOne(
     applicationTag: tag
 ) {
-    let privateKey = try P256.Signing.PrivateKey(secKey: secKey)
     // Key is now ready to use
 }
 ```
@@ -143,12 +132,11 @@ _ = try await context.evaluatePolicy(
 
 // Now use the context for multiple key operations
 let tag = "com.example.myapp.protected-key".data(using: .utf8)!
-if let secKey = try await Keychain.Keys.queryOne(
-    keyType: .ellipticCurve(.privateKey),
+if let privateKey: P256.Signing.PrivateKey = try await Keychain.Keys.queryOne(
     applicationTag: tag,
     authenticationContext: context  // No prompt shown
 ) {
-    // Use secKey without additional prompts
+    // Use privateKey without additional prompts
 }
 ```
 
@@ -164,22 +152,18 @@ import SwiftKeychainKit
 let tag = "com.example.myapp.signing-key".data(using: .utf8)!
 
 let privateKey: P256.Signing.PrivateKey
-let existingKey = try? await Keychain.Keys.queryOne(
-    keyType: .ellipticCurve(.privateKey),
+if let existingKey: P256.Signing.PrivateKey = try? await Keychain.Keys.queryOne(
     applicationTag: tag
-)
-
-if let secKey = existingKey {
-    // Key exists, convert to CryptoKit
-    privateKey = try P256.Signing.PrivateKey(secKey: secKey)
+) {
+    // Key exists
+    privateKey = existingKey
 } else {
     // Generate new key
     privateKey = P256.Signing.PrivateKey()
     
     // Store in Keychain
-    let secKey = try privateKey.makeSecKey()
     try await Keychain.Keys.addPrivateKey(
-        secKey,
+        privateKey,
         applicationTag: tag
     )
 }
@@ -205,11 +189,10 @@ import SwiftKeychainKit
 
 // Generate and store Alice's key
 let alicePrivateKey = P256.KeyAgreement.PrivateKey()
-let aliceSecKey = try alicePrivateKey.makeSecKey()
 let aliceTag = "com.example.alice.agreement-key".data(using: .utf8)!
 
 try await Keychain.Keys.addPrivateKey(
-    aliceSecKey,
+    alicePrivateKey,
     applicationTag: aliceTag
 )
 
@@ -218,12 +201,9 @@ let bobPrivateKey = P256.KeyAgreement.PrivateKey()
 let bobPublicKey = bobPrivateKey.publicKey
 
 // Retrieve Alice's key
-if let aliceSecKey = try await Keychain.Keys.queryOne(
-    keyType: .ellipticCurve(.privateKey),
+if let alicePrivateKey: P256.KeyAgreement.PrivateKey = try await Keychain.Keys.queryOne(
     applicationTag: aliceTag
 ) {
-    let alicePrivateKey = try P256.KeyAgreement.PrivateKey(secKey: aliceSecKey)
-    
     // Perform key agreement
     let sharedSecret = try alicePrivateKey.sharedSecretFromKeyAgreement(with: bobPublicKey)
     
