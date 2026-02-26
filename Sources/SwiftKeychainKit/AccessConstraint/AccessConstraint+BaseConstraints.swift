@@ -8,8 +8,16 @@ public extension Keychain.AccessConstraint {
     ///
     /// ## Valid Combinations
     ///
-    /// - OR: `devicePasscode | biometryAny`, `devicePasscode | biometryCurrentSet`
-    /// - AND: `devicePasscode & biometryAny`, `devicePasscode & biometryCurrentSet`, `devicePasscode & applicationPassword`
+    /// ### OR
+    ///
+    /// - `devicePasscode | biometryAny`
+    /// - `devicePasscode | biometryCurrentSet`
+    ///
+    /// ### AND
+    ///
+    /// - `devicePasscode & biometryAny`
+    /// - `devicePasscode & biometryCurrentSet`
+    /// - `devicePasscode & applicationPassword`
     ///
     /// - SeeAlso: [kSecAccessControlDevicePasscode](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags/1392879-devicepasscode)
     struct DevicePasscode: Constrainable, CompanionOrable, CompanionAndable {}
@@ -25,8 +33,14 @@ public extension Keychain.AccessConstraint {
     ///
     /// ## Valid Combinations
     ///
-    /// - OR: `devicePasscode | biometryAny`
-    /// - AND: `devicePasscode & biometryAny`, `applicationPassword & biometryAny`
+    /// ### OR
+    ///
+    /// - `devicePasscode | biometryAny`
+    ///
+    /// ### AND
+    ///
+    /// - `devicePasscode & biometryAny`
+    /// - `applicationPassword & biometryAny`
     ///
     /// ## Important
     ///
@@ -49,8 +63,14 @@ public extension Keychain.AccessConstraint {
     ///
     /// ## Valid Combinations
     ///
-    /// - OR: `devicePasscode | biometryCurrentSet`
-    /// - AND: `devicePasscode & biometryCurrentSet`, `applicationPassword & biometryCurrentSet`
+    /// ### OR
+    ///
+    /// - `devicePasscode | biometryCurrentSet`
+    ///
+    /// ### AND
+    ///
+    /// - `devicePasscode & biometryCurrentSet`
+    /// - `applicationPassword & biometryCurrentSet`
     ///
     /// ## Important
     ///
@@ -71,7 +91,11 @@ public extension Keychain.AccessConstraint {
     ///
     /// ## Valid Combinations
     ///
-    /// - AND: `devicePasscode & applicationPassword`, `applicationPassword & biometryAny`, `applicationPassword & biometryCurrentSet`
+    /// ### AND
+    ///
+    /// - `devicePasscode & applicationPassword`
+    /// - `applicationPassword & biometryAny`
+    /// - `applicationPassword & biometryCurrentSet`
     ///
     /// ## Important
     ///
@@ -90,8 +114,18 @@ public extension Keychain.AccessConstraint {
     ///
     /// ## Valid Combinations
     ///
-    /// - OR: `devicePasscode | companion`, `biometryAny | companion`, `biometryCurrentSet | companion`
-    /// - AND: `devicePasscode & companion`, `biometryAny & companion`, `biometryCurrentSet & companion`, `applicationPassword & companion`
+    /// ### OR
+    ///
+    /// - `devicePasscode | companion`
+    /// - `biometryAny | companion`
+    /// - `biometryCurrentSet | companion`
+    ///
+    /// ### AND
+    ///
+    /// - `devicePasscode & companion`
+    /// - `biometryAny & companion`
+    /// - `biometryCurrentSet & companion`
+    /// - `applicationPassword & companion`
     ///
     /// - SeeAlso: [kSecAccessControlCompanion](https://developer.apple.com/documentation/security/secaccesscontrolcreateflags)
     struct Companion: Constrainable {}
