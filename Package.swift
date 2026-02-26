@@ -30,6 +30,9 @@ let package = Package(
                 .product(name: "BasicContainers", package: "swift-collections"),
                 .product(name: "AppEntitlements", package: "app-entitlements"),
             ],
+            resources: [
+                .process("Resources/PrivacyInfo.xcprivacy"),
+            ],
             swiftSettings: commonSwiftSettings,
         ),
         .testTarget(
