@@ -1,5 +1,10 @@
 private import AppEntitlements
 
+/// Reads access group information from the app's entitlements at runtime.
+///
+/// Use this provider to discover which Keychain access groups, application groups, and application identifier
+/// are available to your app. This is the default provider used by ``Keychain/AccessGroup`` and
+/// ``Keychain/AccessGroupScope``.
 public enum AppEntitlementsAccessGroupProvider: Keychain.AccessGroupProviding & Keychain.ApplicationIdentifierProviding {
     /// The app's application identifier from its entitlements.
     ///

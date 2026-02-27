@@ -8,45 +8,60 @@ SwiftKeychainKit provides a simple and robust interface for storing and retrievi
 sensitive data in the Keychain on iOS and macOS. It supports the Data Protection Keychain
 with full Swift 6 concurrency support.
 
-The package is motivated by the complexity and sharp edges of the native Keychain APIs,
-and aims to make correct usage easy in modern Swift.
+Common operations like storing or retrieving a password need only a few lines of
+code with sensible defaults. At the same time, the API prevents accidental misuse:
+``SecretData`` automatically zeroes sensitive memory when it goes out of scope,
+invalid access constraint combinations are caught at compile time, and required
+scope parameters guard against unintended mass deletions.
 
 ## Topics
 
-### Essentials
-
-- <doc:GettingStarted>
-- ``Keychain``
-- ``KeychainError``
-
 ### Guides
 
-- <doc:ErrorHandling>
+- <doc:GettingStarted>
+- <doc:SharingKeychainItems>
+- <doc:UsingSecureEnclaveKeys>
+- <doc:ProtectingItemsWithCustomPassword>
 - <doc:UsingCryptoKit>
+- <doc:HandlingSecretData>
+- <doc:ErrorHandling>
 
-### Passwords
+### Keychain Items
 
 - ``Keychain/GenericPassword``
 - ``Keychain/InternetPassword``
-
-### Cryptographic Keys
-
 - ``Keychain/Keys``
 - ``Keychain/SecureEnclaveKeys``
-- ``SecKeyConvertible``
-
-### Certificates and Identities
-
 - ``Keychain/Certificates``
 - ``Keychain/Identities``
+- ``SecKeyConvertible``
+- ``SecKeyInitializable``
+- ``SecKeyRepresentable``
+- ``AsymmetricKeyTypeProviding``
+- ``AsymmetricKeyType``
+- ``AsymmetricKeyClass``
 
 ### Access Control
 
 - ``Keychain/AccessControl``
 - ``Keychain/ItemAccessibility``
 - ``Keychain/AccessConstraint``
+- ``AppEntitlementsAccessGroupProvider``
+
+### Sensitive Data
+
+- ``SecretData``
+- ``SecretDataProtocol``
+- ``SecretDataError``
 
 ### Query Options
 
 - ``Keychain/QueryScope``
 - ``Keychain/QueryLimit``
+
+### Error Handling
+
+- ``KeychainError``
+- ``SecurityFrameworkError``
+- ``SecKeyConversionError``
+- ``EntitlementError``

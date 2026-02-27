@@ -11,13 +11,13 @@ even though the underlying Apple APIs are complex and easy to misuse.
 ## Passwords
 
 Store, retrieve, and update generic passwords.
-For passwords associated with a URL or network endpoint, use ``Keychain/InternetPassword`` instead.
+For passwords associated with a URL or network endpoint, use
+``Keychain/InternetPassword`` instead.
 
 ```swift
 import SwiftKeychainKit
 
 // Store a password
-// Source string may remain in memory (Copy-on-Write)
 let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "MySecretPassword")
 try await Keychain.GenericPassword.add(
     password,
@@ -30,8 +30,6 @@ if let password = try await Keychain.GenericPassword.get(
     account: "user@example.com",
     service: "com.example.myapp"
 ) {
-    // Prefer withUnsafeBytes for memory-safe access;
-    // makeUnsafeUTF8String() is convenient but leaves an unprotected copy
     let string = password.makeUnsafeUTF8String()
 }
 
@@ -46,10 +44,8 @@ try await Keychain.GenericPassword.update(
 
 ## CryptoKit Keys
 
-### SecKeyConvertible (NIST Curves)
-
-CryptoKit NIST curve keys (P-256, P-384, P-521) conform to ``SecKeyConvertible`` and can be
-stored directly via ``Keychain/Keys``:
+CryptoKit keys can be stored directly in the Keychain. NIST curve keys
+(P-256, P-384, P-521) are stored via ``Keychain/Keys``:
 
 ```swift
 import CryptoKit
@@ -57,44 +53,24 @@ import CryptoKit
 let privateKey = P256.Signing.PrivateKey()
 let tag = "com.example.myapp.p256-key".data(using: .utf8)!
 
-// Store directly — no SecKey conversion needed
 try await Keychain.Keys.addPrivateKey(
     privateKey,
     applicationTag: tag
 )
 
-// Retrieve as CryptoKit type
 let retrievedKey: P256.Signing.PrivateKey? = try await Keychain.Keys.queryOne(
     applicationTag: tag
 )
 ```
 
-### GenericPasswordConvertible (Curve25519)
-
-Curve25519 keys cannot be represented as `SecKey` and are stored as generic passwords instead:
-
-```swift
-import CryptoKit
-
-let privateKey = Curve25519.KeyAgreement.PrivateKey()
-
-// Store as generic password
-try await Keychain.GenericPassword.add(
-    privateKey,
-    account: "com.example.myapp.curve25519-key",
-    service: "com.example.myapp"
-)
-
-// Retrieve as CryptoKit type
-let retrievedKey: Curve25519.KeyAgreement.PrivateKey? = try await Keychain.GenericPassword.get(
-    account: "com.example.myapp.curve25519-key",
-    service: "com.example.myapp"
-)
-```
+Curve25519 keys are stored as generic passwords using
+``Keychain/GenericPasswordConvertible``. For details and examples, see
+<doc:UsingCryptoKit>.
 
 ## Deleting Items
 
-Remove items from the Keychain:
+To remove items from the Keychain, specify the item's primary key attributes
+and an access group scope:
 
 ```swift
 try await Keychain.GenericPassword.delete(
@@ -122,9 +98,11 @@ try await Keychain.Keys.addPrivateKey(
 )
 ```
 
+For application passwords and other access constraints, see
+<doc:ProtectingItemsWithCustomPassword>.
+
 ## See Also
 
-- ``SecretData``
 - ``Keychain/GenericPassword``
 - ``Keychain/InternetPassword``
 - ``Keychain/Keys``

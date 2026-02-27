@@ -4,28 +4,17 @@ Respond to errors from Keychain operations and display meaningful messages to yo
 
 ## Overview
 
-SwiftKeychainKit uses ``KeychainError`` for all Keychain operation failures.
+SwiftKeychainKit uses typed throws with ``KeychainError`` for all Keychain
+operation failures. The compiler knows the error type, so you can match
+against specific cases directly in your `catch` clauses without casting.
+
 Each error carries a strongly-typed ``KeychainError/Code`` that you can match
-against in `catch` clauses. Convenience properties like ``KeychainError/duplicateItem``
-and ``KeychainError/itemNotFound`` make common cases easy to handle.
+against. Convenience properties like ``KeychainError/duplicateItem`` and
+``KeychainError/itemNotFound`` make common cases easy to handle.
 
 ## Matching Common Errors
 
-For common Security framework errors, use the convenience properties for cleaner pattern matching:
-
-```swift
-do {
-    let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
-    try await Keychain.GenericPassword.update(
-        account: "user@example.com",
-        service: "com.example.app",
-        to: newPassword
-    )
-} catch KeychainError.itemNotFound {
-    // Update target not found
-    print("Item not found")
-}
-```
+Use convenience properties to handle frequently encountered errors:
 
 ```swift
 do {
@@ -36,18 +25,27 @@ do {
         service: "com.example.app"
     )
 } catch KeychainError.duplicateItem {
-    // Item already exists, handle accordingly
-    print("Password already exists for this account")
+    // Item already exists, update it instead
+    let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
+    try await Keychain.GenericPassword.update(
+        account: "user@example.com",
+        service: "com.example.app",
+        to: newPassword
+    )
+} catch KeychainError.itemNotFound {
+    print("Item not found")
+} catch {
+    print("Unexpected error: \(error)")
 }
 ```
 
 ## Matching Security Framework Errors
 
-Use this pattern when you need to handle OSStatus codes that don't have convenience properties:
+For `OSStatus` codes that don't have convenience properties, match against
+the ``SecurityFrameworkError`` directly:
 
 ```swift
 do {
-    let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
     try await Keychain.GenericPassword.update(
         account: "user@example.com",
         service: "com.example.app",
@@ -67,43 +65,14 @@ do {
 }
 ```
 
-The ``SecurityFrameworkError/message`` property provides the Security framework's
-error description for a given `OSStatus` code.
-
-## Handling Multiple Error Types
-
-Combine different error types for comprehensive error handling:
-
-```swift
-do {
-    let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "new-secret")
-    try await Keychain.GenericPassword.update(
-        account: "user@example.com",
-        service: "com.example.app",
-        to: newPassword
-    )
-} catch KeychainError.itemNotFound {
-    // Item doesn't exist, add it instead
-    let fallbackPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "new-secret")
-    try await Keychain.GenericPassword.add(
-        fallbackPassword,
-        account: "user@example.com",
-        service: "com.example.app"
-    )
-} catch KeychainError.invalidParameters {
-    // Invalid parameters provided
-    print("Invalid parameters")
-} catch {
-    // Other errors
-    print("Unexpected error: \(error)")
-}
-```
+The ``SecurityFrameworkError/message`` property provides the Security
+framework's error description for a given `OSStatus` code.
 
 ## Logging Errors
 
-All error types in SwiftKeychainKit provide detailed technical descriptions through
-`CustomDebugStringConvertible`. Use `String(reflecting:)` to include these
-descriptions in your logs:
+All error types in SwiftKeychainKit provide detailed technical descriptions
+through `CustomDebugStringConvertible`. Use `String(reflecting:)` to include
+these descriptions in your logs:
 
 ```swift
 } catch {
@@ -129,15 +98,15 @@ import SwiftKeychainKit
 
 extension KeychainError: @retroactive LocalizedError {
     public var errorDescription: String? {
-        switch code {
-        case let .securityError(error) where error.status == errSecDuplicateItem:
+        switch self {
+        case KeychainError.duplicateItem:
             String(localized: "error.duplicateItem")
-        case let .securityError(error) where error.status == errSecItemNotFound:
+        case KeychainError.itemNotFound:
             String(localized: "error.itemNotFound")
-        case let .securityError(error) where error.status == errSecAuthFailed:
+        case KeychainError.authenticationFailed:
             String(localized: "error.authenticationFailed")
-        case .multipleItemsFound:
-            String(localized: "error.multipleItems")
+        case KeychainError.securityError(errSecDecode):
+            String(localized: "error.decodeFailed")
         default:
             String(localized: "error.keychainOperationFailed")
         }
@@ -151,4 +120,5 @@ error codes, including other Security framework errors.
 ## See Also
 
 - ``KeychainError``
+- ``SecurityFrameworkError``
 - ``SecretDataError``
