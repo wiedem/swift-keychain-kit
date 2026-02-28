@@ -2,7 +2,7 @@
 
 A modern Swift package for type-safe Keychain operations on iOS and macOS.
 
-[![Swift 6](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org)
+[![Swift 6.2](https://img.shields.io/badge/Swift-6.2-orange.svg)](https://swift.org)
 [![Platforms](https://img.shields.io/badge/Platforms-iOS%2015+%20|%20macOS%2012+-blue.svg)](https://swift.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE.txt)
 
@@ -130,8 +130,8 @@ Or add it in Xcode:
 ## Requirements
 
 - iOS 15.0+ / macOS 12.0+
-- Swift 6.0+
-- Xcode 16.0+
+- Swift 6.2+
+- Xcode 16.3+
 
 ## Testing
 

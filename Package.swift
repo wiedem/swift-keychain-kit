@@ -1,10 +1,8 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 6.2
 import PackageDescription
 
 let commonSwiftSettings: [SwiftSetting] = [
-    .enableUpcomingFeature("ExistentialAny"),
     .enableUpcomingFeature("InternalImportsByDefault"),
-    .enableUpcomingFeature("StrictConcurrency"),
 ]
 
 let package = Package(
@@ -33,7 +31,7 @@ let package = Package(
             resources: [
                 .process("Resources/PrivacyInfo.xcprivacy"),
             ],
-            swiftSettings: commonSwiftSettings,
+            swiftSettings: commonSwiftSettings
         ),
         .testTarget(
             name: "SwiftKeychainKitTests",
