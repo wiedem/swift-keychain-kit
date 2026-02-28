@@ -8,6 +8,10 @@ SwiftKeychainKit provides a simple, type-safe API for working with the Keychain.
 The goal is to make correct use of the Data Protection Keychain straightforward,
 even though the underlying Apple APIs are complex and easy to misuse.
 
+All Keychain operations in SwiftKeychainKit are asynchronous. Each operation
+performs I/O against the system's Keychain database, and async/await ensures
+that these calls do not block the calling thread.
+
 ## Passwords
 
 Store, retrieve, and update generic passwords.
