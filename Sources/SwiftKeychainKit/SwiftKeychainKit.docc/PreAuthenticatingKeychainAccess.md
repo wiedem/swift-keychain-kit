@@ -33,6 +33,8 @@ let accessControl = Keychain.AccessControl.make(
 )
 
 let context = LAContext()
+
+// Triggers a biometric prompt
 try await accessControl.evaluate(
     operation: .useItem,
     localizedReason: "Authenticate to access your credentials",
@@ -54,12 +56,15 @@ avoiding repeated biometric prompts:
 
 ```swift
 let context = LAContext()
+
+// Triggers a biometric prompt
 try await accessControl.evaluate(
     operation: .useItem,
     localizedReason: "Authenticate to access your credentials",
     context: context
 )
 
+// No additional prompts, the context is already authenticated
 let password = try await Keychain.GenericPassword.get(
     account: "user@example.com",
     service: "com.example.app",
@@ -83,6 +88,7 @@ LocalAuthentication framework:
 let context = LAContext()
 
 do {
+    // Triggers a biometric prompt
     try await accessControl.evaluate(
         operation: .useItem,
         localizedReason: "Authenticate to access your credentials",
