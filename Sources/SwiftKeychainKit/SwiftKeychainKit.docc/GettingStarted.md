@@ -9,8 +9,9 @@ The goal is to make correct use of the Data Protection Keychain straightforward,
 even though the underlying Apple APIs are complex and easy to misuse.
 
 All Keychain operations in SwiftKeychainKit are asynchronous. Each operation
-performs I/O against the system's Keychain database, and async/await ensures
-that these calls do not block the calling thread.
+performs I/O against the system's Keychain database, and async/await allows
+the caller to suspend while waiting for the result, keeping the calling
+context responsive.
 
 ## Passwords
 
