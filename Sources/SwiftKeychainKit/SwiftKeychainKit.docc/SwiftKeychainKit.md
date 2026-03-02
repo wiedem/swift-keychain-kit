@@ -19,6 +19,7 @@ scope parameters guard against unintended mass deletions.
 ### Guides
 
 - <doc:GettingStarted>
+- <doc:UsingItemReferences>
 - <doc:SharingKeychainItems>
 - <doc:UsingSecureEnclaveKeys>
 - <doc:UsingCryptoKit>
@@ -26,7 +27,6 @@ scope parameters guard against unintended mass deletions.
 - <doc:ProtectingItemsWithCustomPassword>
 - <doc:HandlingSecretData>
 - <doc:ErrorHandling>
-- <doc:UsingItemReferences>
 
 ### Keychain Items
 
