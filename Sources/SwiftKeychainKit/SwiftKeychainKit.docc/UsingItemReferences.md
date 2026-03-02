@@ -4,7 +4,7 @@ Store a reference to a Keychain item for later retrieval without repeating the o
 
 ## Overview
 
-Every `add()` method returns an ``ItemReference``, an opaque handle that uniquely identifies the stored item. Instead of keeping track of the primary key attributes, you can use the reference to retrieve, update, or delete the item directly.
+Every `add()` method returns an ``ItemReference``, an opaque handle that uniquely identifies the stored item for as long as it exists in the Keychain. Instead of keeping track of the primary key attributes, you can use the reference to retrieve, update, or delete the item directly.
 
 Item references are especially useful for:
 - **Token storage**: Store an access token at login, retrieve it on next launch.
@@ -12,7 +12,7 @@ Item references are especially useful for:
 
 Item references are supported for all item types except ``Keychain/SecureEnclaveKeys``.
 
-## Storing and Retrieving by Reference
+## Working with References
 
 Store an item and keep the returned reference:
 
@@ -26,15 +26,38 @@ let itemReference = try await Keychain.GenericPassword.add(
 )
 ```
 
-Pass the reference to `get(itemReference:)` to retrieve the item later:
+Use the reference to retrieve, update, or delete the item. No additional query
+parameters are needed:
 
 ```swift
 let password = try await Keychain.GenericPassword.get(itemReference: itemReference)
+
+let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "new-password")
+try await Keychain.GenericPassword.update(itemReference: itemReference, to: newPassword)
+
+let deleted = try await Keychain.GenericPassword.delete(itemReference: itemReference)
 ```
 
-No additional query parameters are needed. If the item has been deleted,
-`get(itemReference:)` returns `nil`. If you don't need the reference, simply
-ignore the return value of `add()`.
+The reference remains valid after an update but becomes invalid after deletion.
+`get(itemReference:)` returns `nil` for deleted items. Adding a new item with
+the same primary keys creates a separate entry with its own, new reference. The
+previous reference remains invalid.
+
+Because a reference always points to exactly one item, operations on it can
+never accidentally affect other items. Compare deleting by reference with
+deleting by query parameters:
+
+```swift
+// Deletes exactly the referenced item
+try await Keychain.GenericPassword.delete(itemReference: itemReference)
+
+// Could match multiple items, e.g. if the same account and service exist in more than one access group
+try await Keychain.GenericPassword.delete(
+    account: .specific("user@example.com"),
+    service: .specific("com.example.app"),
+    accessGroup: .any
+)
+```
 
 ## Persisting a Reference
 

@@ -6,6 +6,9 @@ public import Foundation
 /// reproducing the original query parameters. Item references are obtained by storing an item with one
 /// of the `add()` methods that return an ``ItemReference``.
 ///
+/// A reference is valid until the item it points to is deleted. If a new item is added with the
+/// same primary keys, it receives a new reference. The previous reference remains invalid.
+///
 /// The generic parameter `ItemClass` associates the reference with a specific Keychain item type,
 /// preventing accidental use of a reference for the wrong item class.
 public struct ItemReference<ItemClass>: Sendable, Hashable {
