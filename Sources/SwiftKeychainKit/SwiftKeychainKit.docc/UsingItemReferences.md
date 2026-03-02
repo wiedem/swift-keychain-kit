@@ -4,7 +4,7 @@ Store a reference to a Keychain item for later retrieval without repeating the o
 
 ## Overview
 
-When your app stores a token or credential in the Keychain, you typically need to retrieve it later, often without reconstructing the full set of query parameters. An ``ItemReference`` solves this by providing an opaque handle that uniquely identifies a Keychain item.
+Every `add()` method returns an ``ItemReference``, an opaque handle that uniquely identifies the stored item. Instead of keeping track of the primary key attributes, you can use the reference to retrieve, update, or delete the item directly.
 
 Item references are especially useful for:
 - **Token storage**: Store an access token at login, retrieve it on next launch.
@@ -12,9 +12,9 @@ Item references are especially useful for:
 
 Item references are supported for all item types except ``Keychain/SecureEnclaveKeys``.
 
-## Obtaining an Item Reference
+## Storing and Retrieving by Reference
 
-Call any `add()` method and assign the result to get an ``ItemReference``:
+Store an item and keep the returned reference:
 
 ```swift
 let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "s3cret")
@@ -26,20 +26,15 @@ let itemReference = try await Keychain.GenericPassword.add(
 )
 ```
 
-If you don't need the reference, you can simply ignore the result.
-
-## Retrieving an Item by Reference
-
-Pass the reference to `get(itemReference:)` to retrieve the item:
+Pass the reference to `get(itemReference:)` to retrieve the item later:
 
 ```swift
-if let password = try await Keychain.GenericPassword.get(itemReference: itemReference) {
-    let string = password.makeUnsafeUTF8String()
-}
+let password = try await Keychain.GenericPassword.get(itemReference: itemReference)
 ```
 
-Because the reference uniquely identifies a single item, no additional query parameters are needed.
-If the item has been deleted, `get(itemReference:)` returns `nil`.
+No additional query parameters are needed. If the item has been deleted,
+`get(itemReference:)` returns `nil`. If you don't need the reference, simply
+ignore the return value of `add()`.
 
 ## Persisting a Reference
 

@@ -31,12 +31,10 @@ try await Keychain.GenericPassword.add(
 )
 
 // Retrieve a password
-if let password = try await Keychain.GenericPassword.get(
+let password = try await Keychain.GenericPassword.get(
     account: "user@example.com",
     service: "com.example.myapp"
-) {
-    let string = password.makeUnsafeUTF8String()
-}
+)
 
 // Update a password
 let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "MyNewPassword")
