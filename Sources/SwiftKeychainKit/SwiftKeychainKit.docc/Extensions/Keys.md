@@ -139,6 +139,8 @@ For most use cases, you'll identify keys using the `applicationTag` attribute, w
 
 In most queries, you'll search by `applicationTag` since it's more meaningful to your application logic.
 
+However, when using the default `.publicKeyHash` application label, `applicationTag` alone does not guarantee uniqueness. Each key has a distinct public key hash as its `applicationLabel`, so adding two different keys with the same tag but different key material succeeds without a ``KeychainError/duplicateItem`` error.
+
 ## Topics
 
 ### Adding Keys
