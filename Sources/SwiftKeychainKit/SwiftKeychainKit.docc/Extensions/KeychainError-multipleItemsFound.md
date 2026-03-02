@@ -99,8 +99,8 @@ The ``multipleItemsFound`` error helps prevent subtle bugs by making you aware w
 
 ## Methods That Never Throw This Error
 
-- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->SecretData?`` - Guaranteed unique by primary key
-- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->Password?`` - Guaranteed unique by primary key
+- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-1w6be`` - Guaranteed unique by primary key
+- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-p27p`` - Guaranteed unique by primary key
 
 ## See Also
 

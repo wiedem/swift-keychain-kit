@@ -63,8 +63,7 @@ private extension CertificatesAttributesIntegrationTests {
     func cleanup() {
         do {
             try Keychain.Certificates.delete(
-                label: .specific(keychainLabel),
-                synchronizable: .any
+                label: .specific(keychainLabel)
             )
         } catch {
             print("Failed to clean up certificate after test: \(error)")

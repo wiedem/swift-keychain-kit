@@ -34,7 +34,7 @@ struct AccessConstraintTests {
                 "companion",
                 Keychain.AccessConstraint.companion,
                 expectedFlags: Self.companionExpectedFlags
-            )
+            ),
         ]
     )
     func baseConstraintFlags(testCase: ConstraintsTestCase) {
@@ -54,7 +54,7 @@ struct AccessConstraintTests {
     }
 
     @Test("DevicePasscode OR biometryAny expands to individual flags")
-    func devicePasscodeOrBiometryAnyExpandsToIndividualFlags() throws {
+    func devicePasscodeOrBiometryAnyExpandsToIndividualFlags() {
         let constraint = Keychain.AccessConstraint.devicePasscode | .biometryAny
         // Explicit combination uses individual flags
         #expect(constraint.secAccessControlCreateFlags == [.devicePasscode, .biometryAny, .or])
@@ -214,7 +214,7 @@ extension AccessConstraintTests {
         ) {
             self.name = name
             createFlags = { constraints().secAccessControlCreateFlags }
-            self.expected = expectedFlags
+            expected = expectedFlags
         }
     }
 }

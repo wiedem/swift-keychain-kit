@@ -47,6 +47,22 @@ try await Keychain.GenericPassword.update(
 )
 ```
 
+## Item References
+
+Every `add()` method returns an ``ItemReference`` that uniquely identifies the stored item. You can use it to retrieve, update, or delete the item later without repeating the original query parameters:
+
+```swift
+let itemReference = try await Keychain.GenericPassword.add(
+    password,
+    account: "user@example.com",
+    service: "com.example.myapp"
+)
+
+let password = try await Keychain.GenericPassword.get(itemReference: itemReference)
+```
+
+Item references are `Codable` and can be persisted across app launches. For details, see <doc:UsingItemReferences>.
+
 ## CryptoKit Keys
 
 CryptoKit keys can be stored directly in the Keychain. NIST curve keys

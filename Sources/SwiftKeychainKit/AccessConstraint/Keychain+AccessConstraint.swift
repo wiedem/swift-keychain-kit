@@ -83,5 +83,5 @@ public extension Keychain.AccessConstraint {
     /// - Important: This protocol is public to enable constraint combination syntax, but is not
     ///   intended for implementation by types outside of SwiftKeychainKit. Only the library's
     ///   built-in constraint types should conform to this protocol.
-    protocol Constrainable: Sendable  {}
+    protocol Constrainable: Sendable {}
 }

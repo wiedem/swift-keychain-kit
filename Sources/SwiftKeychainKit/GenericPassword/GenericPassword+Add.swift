@@ -1,10 +1,13 @@
 public import LocalAuthentication
 
 public extension Keychain.GenericPassword {
-    /// Adds a generic password to the Keychain.
+    /// Adds a generic password to the Keychain and returns an item reference.
     ///
     /// Stores data in the Keychain with the specified attributes. The entry must not already exist with the same primary key
     /// attributes (account, service, accessGroup, and synchronizable).
+    ///
+    /// The returned ``ItemReference`` uniquely identifies the stored item and can be persisted for later retrieval
+    /// via ``get(itemReference:skipIfUIRequired:authenticationContext:)-1f1np``.
     ///
     /// - Parameters:
     ///   - data: The data to store in the Keychain.
@@ -17,16 +20,19 @@ public extension Keychain.GenericPassword {
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)
     ///     for pre-authenticated access to protected items. Defaults to `nil`.
     ///
+    /// - Returns: An ``ItemReference`` that uniquely identifies the stored item.
+    ///
     /// - Throws:
     ///   * ``KeychainError/duplicateItem`` if an entry with the same primary attributes exists.
     ///   * ``KeychainError`` for other Keychain operation failures.
-    ///   
+    ///
     /// - SeeAlso:
     ///   * [Restricting keychain item accessibility](https://developer.apple.com/documentation/security/restricting-keychain-item-accessibility)
     ///   * [Sharing access to keychain items among a collection of apps](https://developer.apple.com/documentation/security/sharing-access-to-keychain-items-among-a-collection-of-apps)
     ///
     /// - Note: Security Consideration: The secret data is stored securely in the Keychain.
     /// The provided data is consumed after storage.
+    @discardableResult
     static func add(
         _ data: consuming some SecretDataProtocol & ~Copyable,
         account: String,
@@ -36,7 +42,7 @@ public extension Keychain.GenericPassword {
         synchronizable: Bool = false,
         accessControl: Keychain.AccessControl = .afterFirstUnlockThisDeviceOnly,
         authenticationContext: LAContext? = nil
-    ) async throws {
+    ) async throws -> ItemReference<Self> {
         var query = baseQuery()
 
         let cfData = try data.makeUnownedCFData()
@@ -54,17 +60,21 @@ public extension Keychain.GenericPassword {
 
         try accessControl.apply(to: &query)
 
-        try Keychain.addItem(query: query)
+        let persistentRef = try Keychain.addItemReturningPersistentReference(query: query)
+        return ItemReference(persistentReferenceData: persistentRef)
     }
 }
 
 // MARK: - GenericPasswordRepresentable
 
 public extension Keychain.GenericPassword {
-    /// Adds a generic password from a custom type to the Keychain.
+    /// Adds a generic password from a custom type to the Keychain and returns an item reference.
     ///
     /// Stores data in the Keychain by first converting the secret to its generic password representation. The entry must not
     /// already exist with the same primary key attributes (account, service, accessGroup, and synchronizable).
+    ///
+    /// The returned ``ItemReference`` uniquely identifies the stored item and can be persisted for later retrieval
+    /// via ``get(itemReference:skipIfUIRequired:authenticationContext:)-1f1np``.
     ///
     /// - Parameters:
     ///   - secret: The secret conforming to ``Keychain/GenericPasswordRepresentable`` to store.
@@ -77,6 +87,8 @@ public extension Keychain.GenericPassword {
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)
     ///     for pre-authenticated access to protected items. Defaults to `nil`.
     ///
+    /// - Returns: An ``ItemReference`` that uniquely identifies the stored item.
+    ///
     /// - Throws:
     ///   * ``KeychainError/duplicateItem`` if an entry with the same primary attributes exists.
     ///   * ``KeychainError`` for other Keychain operation failures.
@@ -88,6 +100,7 @@ public extension Keychain.GenericPassword {
     ///
     /// - Note: Security Consideration: The secret data is stored securely in the Keychain.
     /// The provided data is consumed after storage.
+    @discardableResult
     static func add(
         _ secret: some Keychain.GenericPasswordRepresentable,
         account: String,
@@ -97,7 +110,7 @@ public extension Keychain.GenericPassword {
         synchronizable: Bool = false,
         accessControl: Keychain.AccessControl = .afterFirstUnlockThisDeviceOnly,
         authenticationContext: LAContext? = nil
-    ) async throws {
+    ) async throws -> ItemReference<Self> {
         try await add(
             secret.genericPasswordRepresentation(),
             account: account,

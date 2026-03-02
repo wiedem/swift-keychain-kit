@@ -47,7 +47,7 @@ public extension Keychain.Keys {
     /// Synchronously deletes cryptographic keys matching the specified criteria.
     ///
     /// This is the synchronous variant of
-    /// ``delete(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:authenticationContext:)`` and
+    /// ``delete(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:authenticationContext:)-5qero`` and
     /// can be safely used in `deinit` implementations or other synchronous contexts.
     ///
     /// - Parameters:

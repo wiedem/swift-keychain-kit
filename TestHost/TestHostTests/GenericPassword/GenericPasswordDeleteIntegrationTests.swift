@@ -26,7 +26,7 @@ final class GenericPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.GenericPassword.delete(
             account: .specific(keychainAccountName),
             service: .specific(keychainServiceName),
-            accessGroup: .any
+            accessGroup: .default
         )
         #expect(deleted == true)
 
@@ -42,7 +42,7 @@ final class GenericPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.GenericPassword.delete(
             account: .specific(UUID().uuidString),
             service: .specific(keychainServiceName),
-            accessGroup: .any
+            accessGroup: .default
         )
         #expect(deleted == false)
     }
@@ -58,7 +58,7 @@ final class GenericPasswordDeleteIntegrationTests {
             _ = try? Keychain.GenericPassword.delete(
                 account: .specific(testAccount),
                 service: .specific(testService),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -83,7 +83,7 @@ final class GenericPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.GenericPassword.delete(
             account: .specific(testAccount),
             service: .specific(testService),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .synchronized
         )
         #expect(deleted == true)
@@ -109,7 +109,7 @@ final class GenericPasswordDeleteIntegrationTests {
             _ = try? Keychain.GenericPassword.delete(
                 account: .specific(testAccount),
                 service: .specific(testService),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -134,7 +134,7 @@ final class GenericPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.GenericPassword.delete(
             account: .specific(testAccount),
             service: .specific(testService),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .notSynchronized
         )
         #expect(deleted == true)
@@ -160,7 +160,7 @@ final class GenericPasswordDeleteIntegrationTests {
             _ = try? Keychain.GenericPassword.delete(
                 account: .specific(testAccount),
                 service: .specific(testService),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -185,7 +185,7 @@ final class GenericPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.GenericPassword.delete(
             account: .specific(testAccount),
             service: .specific(testService),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .any
         )
         #expect(deleted == true)
@@ -215,7 +215,7 @@ private extension GenericPasswordDeleteIntegrationTests {
             try Keychain.GenericPassword.delete(
                 account: .specific(keychainAccountName),
                 service: .specific(keychainServiceName),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         } catch {

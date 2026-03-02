@@ -42,7 +42,7 @@ public extension Keychain.Identities {
     /// Synchronously deletes identities matching the specified criteria.
     ///
     /// This is the synchronous variant of
-    /// ``delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)`` and can be safely used in
+    /// ``delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)-63i1r`` and can be safely used in
     /// `deinit` implementations or other synchronous contexts.
     ///
     /// - Parameters:

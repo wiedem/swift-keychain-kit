@@ -32,30 +32,26 @@ The APIs are designed to guide you towards correct usage. Invalid attribute comb
 ```swift
 import SwiftKeychainKit
 
-// Store a password
+// Store a password and keep a reference
 let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
-try await Keychain.GenericPassword.add(
+let itemReference = try await Keychain.GenericPassword.add(
     password,
     account: "user@example.com",
     service: "com.example.app"
 )
 
-// Retrieve a password
-if let password = try await Keychain.GenericPassword.get(
-    account: "user@example.com",
-    service: "com.example.app"
-) {
-    let string = password.makeUnsafeUTF8String()
-}
+// Retrieve by reference
+let password = try await Keychain.GenericPassword.get(itemReference: itemReference)
 
-// Update a password
+// Update by reference
 let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "new-secret")
-try await Keychain.GenericPassword.update(
-    account: "user@example.com",
-    service: "com.example.app",
-    to: newPassword
-)
+try await Keychain.GenericPassword.update(itemReference: itemReference, to: newPassword)
+
+// Delete by reference
+try await Keychain.GenericPassword.delete(itemReference: itemReference)
 ```
+
+You can also retrieve and manage items by their attributes (e.g. account and service). See the [documentation](https://wiedem.github.io/swift-keychain-kit/documentation/swiftkeychainkit/) for details.
 
 ### CryptoKit Keys
 
@@ -67,8 +63,10 @@ import CryptoKit
 let privateKey = P256.Signing.PrivateKey()
 let tag = "com.example.signing-key".data(using: .utf8)!
 
-try await Keychain.Keys.addPrivateKey(privateKey, applicationTag: tag)
-let retrieved: P256.Signing.PrivateKey? = try await Keychain.Keys.queryOne(applicationTag: tag)
+let itemReference = try await Keychain.Keys.addPrivateKey(privateKey, applicationTag: tag)
+
+// Retrieve by reference, or use queryOne(applicationTag:) to query by tag
+let retrieved: P256.Signing.PrivateKey? = try await Keychain.Keys.get(itemReference: itemReference)
 ```
 
 Curve25519 keys are stored as generic passwords:

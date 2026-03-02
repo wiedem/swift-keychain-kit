@@ -87,8 +87,8 @@ struct AsymmetricKeyTypeScopeTests {
         var query: [String: Any] = [:]
         Keychain.AsymmetricKeyTypeScope.rsa(.publicKey).apply(to: &query)
 
-        #expect(query[kSecAttrKeyType as String] .cast() == kSecAttrKeyTypeRSA)
-        #expect(query[kSecAttrKeyClass as String] .cast() == kSecAttrKeyClassPublic)
+        #expect(query[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeRSA)
+        #expect(query[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPublic)
         #expect(query.count == 2)
     }
 
@@ -97,7 +97,7 @@ struct AsymmetricKeyTypeScopeTests {
         var query: [String: Any] = [:]
         Keychain.AsymmetricKeyTypeScope.rsa(.any).apply(to: &query)
 
-        #expect(query[kSecAttrKeyType as String] .cast() == kSecAttrKeyTypeRSA)
+        #expect(query[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeRSA)
         #expect(query[kSecAttrKeyClass as String] == nil)
         #expect(query.count == 1)
     }
@@ -107,8 +107,8 @@ struct AsymmetricKeyTypeScopeTests {
         var query: [String: Any] = [:]
         Keychain.AsymmetricKeyTypeScope.ellipticCurve(.privateKey).apply(to: &query)
 
-        #expect(query[kSecAttrKeyType as String] .cast() == kSecAttrKeyTypeECSECPrimeRandom)
-        #expect(query[kSecAttrKeyClass as String] .cast() == kSecAttrKeyClassPrivate)
+        #expect(query[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
+        #expect(query[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(query.count == 2)
     }
 
@@ -117,7 +117,7 @@ struct AsymmetricKeyTypeScopeTests {
         var query: [String: Any] = [:]
         Keychain.AsymmetricKeyTypeScope.ellipticCurve(.any).apply(to: &query)
 
-        #expect(query[kSecAttrKeyType as String] .cast() == kSecAttrKeyTypeECSECPrimeRandom)
+        #expect(query[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
         #expect(query[kSecAttrKeyClass as String] == nil)
         #expect(query.count == 1)
     }
@@ -189,7 +189,9 @@ extension AsymmetricKeyTypeScopeTests {
         let input: AsymmetricKeyType
         let expected: Keychain.AsymmetricKeyTypeScope
 
-        var testDescription: String { name }
+        var testDescription: String {
+            name
+        }
 
         init(
             _ name: String,

@@ -88,7 +88,7 @@ struct ItemAttributesTests {
     @Test("Get method returns attribute value from dictionary")
     func getMethodReturnsAttributeValueFromDictionary() {
         let dictionary: [String: Any] = [
-            Keychain.ItemAttributes.Test.keychainAttributeKey as String: "Value"
+            Keychain.ItemAttributes.Test.keychainAttributeKey as String: "Value",
         ]
 
         let value = Keychain.ItemAttributes.Test.get(from: dictionary)
@@ -108,7 +108,7 @@ struct ItemAttributesTests {
     @Test("Get method returns nil when attribute has wrong type in dictionary")
     func getMethodReturnsNilWhenAttributeHasWrongTypeInDictionary() {
         let dictionary: [String: Any] = [
-            Keychain.ItemAttributes.Test.keychainAttributeKey as String: 123
+            Keychain.ItemAttributes.Test.keychainAttributeKey as String: 123,
         ]
 
         let value = Keychain.ItemAttributes.Test.get(from: dictionary)
@@ -119,7 +119,7 @@ struct ItemAttributesTests {
     @Test("Get method returns keychain value from dictionary")
     func getMethodReturnsKeychainValueFromDictionary() {
         let dictionary: [String: Any] = [
-            Keychain.ItemAttributes.Test.keychainAttributeKey as String: "test1"
+            Keychain.ItemAttributes.Test.keychainAttributeKey as String: "test1",
         ]
 
         let value: KeychainValue? = Keychain.ItemAttributes.Test.get(from: dictionary)
@@ -130,7 +130,7 @@ struct ItemAttributesTests {
     @Test("Get method returns nil when keychain value is invalid")
     func getMethodReturnsNilWhenKeychainValueIsInvalid() {
         let dictionary: [String: Any] = [
-            Keychain.ItemAttributes.Test.keychainAttributeKey as String: "invalid"
+            Keychain.ItemAttributes.Test.keychainAttributeKey as String: "invalid",
         ]
 
         let value: KeychainValue? = Keychain.ItemAttributes.Test.get(from: dictionary)
@@ -163,7 +163,9 @@ private extension ItemAttributesTests {
         case test1
         case test2
 
-        var keychainValue: String { rawValue }
+        var keychainValue: String {
+            rawValue
+        }
 
         init?(keychainValue: String) {
             self.init(rawValue: keychainValue)

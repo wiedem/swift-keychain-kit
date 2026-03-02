@@ -9,14 +9,14 @@ struct SecretDataTests {
     @Test("makeByCopying copies bytes from buffer pointer")
     func makeByCopyingCopiesBytes() throws {
         let originalData = "test password".data(using: .utf8)!
-        
+
         try originalData.withUnsafeBytes { buffer in
             let secret = try SecretData.makeByCopying(from: buffer)
 
             let retrievedData = secret.withUnsafeBytes { buffer in
                 Data(bytes: buffer.baseAddress!, count: buffer.count)
             }
-            
+
             #expect(retrievedData == originalData)
         }
     }
@@ -68,7 +68,7 @@ struct SecretDataTests {
 
     @Test("init(count:initializer:) pre-zeros buffer")
     func initCountInitializerPreZerosBuffer() throws {
-        let secret = try SecretData(count: 10) { buffer in
+        let secret = try SecretData(count: 10) { _ in
             // Don't initialize - verify buffer is pre-zeroed
         }
 

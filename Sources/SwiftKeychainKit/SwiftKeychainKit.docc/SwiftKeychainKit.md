@@ -26,6 +26,7 @@ scope parameters guard against unintended mass deletions.
 - <doc:ProtectingItemsWithCustomPassword>
 - <doc:HandlingSecretData>
 - <doc:ErrorHandling>
+- <doc:UsingItemReferences>
 
 ### Keychain Items
 
@@ -59,6 +60,10 @@ scope parameters guard against unintended mass deletions.
 
 - ``Keychain/QueryScope``
 - ``Keychain/QueryLimit``
+
+### Item References
+
+- ``ItemReference``
 
 ### Error Handling
 

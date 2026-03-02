@@ -21,3 +21,25 @@ public enum Keychain {
     /// Namespace for Secure Enclave key operations.
     public enum SecureEnclaveKeys {}
 }
+
+// MARK: - ItemReferenceTaggable
+
+extension Keychain.GenericPassword: ItemReferenceTaggable {
+    public static let itemReferenceClassTag = ItemReferenceClassTag.genericPassword
+}
+
+extension Keychain.InternetPassword: ItemReferenceTaggable {
+    public static let itemReferenceClassTag = ItemReferenceClassTag.internetPassword
+}
+
+extension Keychain.Keys: ItemReferenceTaggable {
+    public static let itemReferenceClassTag = ItemReferenceClassTag.keys
+}
+
+extension Keychain.Certificates: ItemReferenceTaggable {
+    public static let itemReferenceClassTag = ItemReferenceClassTag.certificates
+}
+
+extension Keychain.Identities: ItemReferenceTaggable {
+    public static let itemReferenceClassTag = ItemReferenceClassTag.identities
+}

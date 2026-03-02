@@ -9,7 +9,7 @@ struct KeysParseAttributesTests {
 
     @Test("parseAttributes with minimal required attributes")
     func parseAttributesWithMinimalAttributes() throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
 
         let dict: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
@@ -33,7 +33,7 @@ struct KeysParseAttributesTests {
 
     @Test("parseAttributes with all attributes")
     func parseAttributesWithAllAttributes() throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let applicationLabel = Data("label".utf8)
         let applicationTag = Data("tag".utf8)
         let dict: [String: Any] = [
@@ -81,7 +81,7 @@ struct KeysParseAttributesTests {
         ]
     )
     func parseAttributesReturnsNilWhenRequiredAttributeMissing(testCase: MissingAttributeTestCase) {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
 
         var dict: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
@@ -120,7 +120,7 @@ struct KeysParseAttributesTests {
         ]
     )
     func parseAttributesThrowsWhenRequiredAttributeHasWrongType(testCase: WrongTypeTestCase) {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
 
         var dict: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
@@ -138,7 +138,7 @@ struct KeysParseAttributesTests {
 
     @Test("parseAttributes ignores optional attributes with wrong types")
     func parseAttributesIgnoresOptionalAttributesWithWrongTypes() throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let dict: [String: Any] = [
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
@@ -152,7 +152,7 @@ struct KeysParseAttributesTests {
         ]
 
         let attributes = try Keychain.Keys.parseAttributes(from: dict)
-        
+
         #expect(attributes.applicationLabel == nil)
         #expect(attributes.applicationTag == nil)
         #expect(attributes.label == nil)
@@ -161,6 +161,7 @@ struct KeysParseAttributesTests {
         #expect(attributes.synchronizable == false)
     }
 }
+
 // MARK: - Test Case Structures
 
 extension KeysParseAttributesTests {
@@ -170,7 +171,7 @@ extension KeysParseAttributesTests {
 
         init(_ name: String, key: CFString) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
         }
 
         func removeValue(in dict: inout [String: Any]) {
@@ -185,7 +186,7 @@ extension KeysParseAttributesTests {
 
         init(_ name: String, key: CFString, wrongValue: @Sendable @escaping @autoclosure () -> Any) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
             self.wrongValue = wrongValue
         }
 
@@ -194,4 +195,3 @@ extension KeysParseAttributesTests {
         }
     }
 }
-

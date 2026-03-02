@@ -247,7 +247,6 @@ final class CertificatesIntegrationTests {
         )
         #expect(remainingSync.isEmpty == true)
     }
-
 }
 
 // MARK: - Private Helpers

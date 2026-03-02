@@ -127,6 +127,10 @@ The minimum required attributes to uniquely identify an entry are `account` and 
 
 - ``add(_:account:server:protocol:authenticationType:port:path:securityDomain:label:accessGroup:synchronizable:accessControl:authenticationContext:)``
 
+### Retrieving Items
+
+- ``get(itemReference:skipIfUIRequired:authenticationContext:)``
+
 ### Querying Items
 
 - ``queryOne(account:server:protocol:authenticationType:port:path:securityDomain:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)``
@@ -135,15 +139,19 @@ The minimum required attributes to uniquely identify an entry are `account` and 
 ### Updating Items
 
 - ``updateMatching(account:server:protocol:authenticationType:port:path:securityDomain:accessGroup:synchronizable:to:authenticationContext:)``
+- ``update(itemReference:to:authenticationContext:)-20gtt``
 
 ### Deleting Items
 
 - ``delete(account:server:protocol:authenticationType:port:path:securityDomain:accessGroup:synchronizable:authenticationContext:)-9sxri``
 - ``delete(account:server:protocol:authenticationType:port:path:securityDomain:accessGroup:synchronizable:authenticationContext:)-70gwe``
+- ``delete(itemReference:authenticationContext:)-15n8h``
+- ``delete(itemReference:authenticationContext:)-uh0a``
 
 ### Attributes
 
 - ``Attributes``
+- ``attributes(itemReference:skipIfUIRequired:authenticationContext:)``
 - ``queryAttributes(account:server:protocol:authenticationType:port:path:securityDomain:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
 
 ### Network Types

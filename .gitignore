@@ -22,9 +22,6 @@ Package.resolved
 # Project configuration
 Local.xcconfig
 
-# AI agent instructions
+# Local configuration
 .claude/
-AGENTS.md
 Claude.md
-CLAUDE.md
-Requirements.md

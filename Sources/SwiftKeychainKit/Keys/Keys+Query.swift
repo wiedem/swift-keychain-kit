@@ -94,7 +94,7 @@ public extension Keychain.Keys {
     ///
     /// - Throws: ``KeychainError`` if the Keychain operation fails, or an error from the `Key` type's initializer if
     ///   conversion fails.
-    static func query<Key: SecKeyInitializable> (
+    static func query<Key: SecKeyInitializable>(
         _ keyType: Key.Type = Key.self,
         keyType keyTypeScope: Keychain.AsymmetricKeyTypeScope,
         applicationTag applicationTagScope: Keychain.ApplicationTagScope = .any,
@@ -156,7 +156,7 @@ public extension Keychain.Keys {
     ///
     /// - Throws: ``KeychainError`` if the Keychain operation fails, or an error from the `Key` type's initializer if
     ///   conversion fails.
-    static func query<Key: SecKeyInitializable & Copyable> (
+    static func query<Key: SecKeyInitializable & Copyable>(
         keyType keyTypeScope: Keychain.AsymmetricKeyTypeScope,
         applicationTag applicationTagScope: Keychain.ApplicationTagScope = .any,
         applicationLabel applicationLabelScope: Keychain.ApplicationLabelScope = .any,
@@ -214,7 +214,7 @@ public extension Keychain.Keys {
     ///
     /// - Throws: ``KeychainError`` if the Keychain operation fails, or an error from the `Key` type's initializer if
     ///   conversion fails.
-    static func query<Key: SecKeyInitializable & AsymmetricKeyTypeProviding> (
+    static func query<Key: SecKeyInitializable & AsymmetricKeyTypeProviding>(
         _ keyType: Key.Type = Key.self,
         applicationTag applicationTagScope: Keychain.ApplicationTagScope = .any,
         applicationLabel applicationLabelScope: Keychain.ApplicationLabelScope = .any,
@@ -265,7 +265,7 @@ public extension Keychain.Keys {
     ///
     /// - Throws: ``KeychainError`` if the Keychain operation fails, or an error from the `Key` type's initializer if
     ///   conversion fails.
-    static func query<Key: SecKeyInitializable & AsymmetricKeyTypeProviding> (
+    static func query<Key: SecKeyInitializable & AsymmetricKeyTypeProviding>(
         applicationTag applicationTagScope: Keychain.ApplicationTagScope = .any,
         applicationLabel applicationLabelScope: Keychain.ApplicationLabelScope = .any,
         keySizeInBits keySizeInBitsScope: Keychain.KeySizeInBitsScope = .any,

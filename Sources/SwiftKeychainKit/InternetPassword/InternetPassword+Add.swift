@@ -2,10 +2,13 @@ public import LocalAuthentication
 private import Security
 
 public extension Keychain.InternetPassword {
-    /// Adds an internet password to the Keychain.
+    /// Adds an internet password to the Keychain and returns an item reference.
     ///
     /// Stores network credentials in the Keychain with the specified attributes. The entry must not already exist with the same
     /// primary key attributes.
+    ///
+    /// The returned ``ItemReference`` uniquely identifies the stored item and can be persisted for later retrieval
+    /// via ``get(itemReference:skipIfUIRequired:authenticationContext:)-9py97``.
     ///
     /// - Parameters:
     ///   - data: The password data to store.
@@ -23,6 +26,8 @@ public extension Keychain.InternetPassword {
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)
     ///     for pre-authenticated access.
     ///
+    /// - Returns: An ``ItemReference`` that uniquely identifies the stored item.
+    ///
     /// - Throws:
     ///   * ``KeychainError/duplicateItem`` if an entry with the same primary attributes exists.
     ///   * ``KeychainError`` for other Keychain operation failures.
@@ -33,6 +38,7 @@ public extension Keychain.InternetPassword {
     ///
     /// - Note: Security Consideration: The password data is stored securely in the Keychain.
     /// The provided data is consumed after storage.
+    @discardableResult
     static func add(
         _ data: consuming some SecretDataProtocol & ~Copyable,
         account: String,
@@ -47,7 +53,7 @@ public extension Keychain.InternetPassword {
         synchronizable: Bool = false,
         accessControl: Keychain.AccessControl = .afterFirstUnlockThisDeviceOnly,
         authenticationContext: LAContext? = nil
-    ) async throws {
+    ) async throws -> ItemReference<Self> {
         var query = baseQuery()
 
         let cfData = try data.makeUnownedCFData()
@@ -71,6 +77,7 @@ public extension Keychain.InternetPassword {
 
         authenticationContext.apply(to: &query)
 
-        try Keychain.addItem(query: query)
+        let persistentRef = try Keychain.addItemReturningPersistentReference(query: query)
+        return ItemReference(persistentReferenceData: persistentRef)
     }
 }

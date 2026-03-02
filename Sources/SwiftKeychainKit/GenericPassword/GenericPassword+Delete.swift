@@ -44,7 +44,7 @@ public extension Keychain.GenericPassword {
 
     /// Synchronously deletes generic passwords matching the specified criteria.
     ///
-    /// This is the synchronous variant of ``delete(account:service:accessGroup:synchronizable:authenticationContext:)`` and can
+    /// This is the synchronous variant of ``delete(account:service:accessGroup:synchronizable:authenticationContext:)-9zdmx`` and can
     /// be safely used in `deinit` implementations or other synchronous contexts.
     ///
     /// Use optional parameters to narrow the deletion scope. When parameters are omitted, all entries matching the remaining

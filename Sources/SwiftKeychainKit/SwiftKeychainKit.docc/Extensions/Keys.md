@@ -19,7 +19,7 @@ import CryptoKit
 
 let privateKey = P256.Signing.PrivateKey()
 
-// Store directly — no SecKey conversion needed
+// Store directly, no SecKey conversion needed
 try await Keychain.Keys.addPrivateKey(
     privateKey,
     applicationTag: "com.example.myapp.p256-key".data(using: .utf8)!
@@ -143,28 +143,36 @@ In most queries, you'll search by `applicationTag` since it's more meaningful to
 
 ### Adding Keys
 
-- ``addPrivateKey(_:applicationTag:applicationLabel:label:accessGroup:synchronizable:accessControl:authenticationContext:)-(SecKey,_,_,_,_,_,_,_)``
-- ``addPrivateKey(_:applicationTag:applicationLabel:label:accessGroup:synchronizable:accessControl:authenticationContext:)-(SecKeyRepresentable,_,_,_,_,_,_,_)``
+- ``addPrivateKey(_:applicationTag:applicationLabel:label:accessGroup:synchronizable:accessControl:authenticationContext:)-5iytt``
+- ``addPrivateKey(_:applicationTag:applicationLabel:label:accessGroup:synchronizable:accessControl:authenticationContext:)-1pfhf``
+
+### Retrieving Keys by Reference
+
+- ``get(itemReference:skipIfUIRequired:authenticationContext:)-21ynx``
+- ``get(itemReference:skipIfUIRequired:authenticationContext:)-4cu19``
 
 ### Querying Keys
 
-- ``query(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)->[SecKey]``
-- ``query(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)->[Key]``
+- ``query(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)-3xzad``
+- ``query(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)-6xkhp``
 - ``query(_:keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
 - ``query(_:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
 - ``query(applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
-- ``queryOne(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->SecKey?``
-- ``queryOne(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->Key?``
+- ``queryOne(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-2xhhe``
+- ``queryOne(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-1gb4n``
 - ``queryOne(applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)``
 
 ### Deleting Keys
 
 - ``delete(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:authenticationContext:)-5qero``
 - ``delete(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:authenticationContext:)-40x5f``
+- ``delete(itemReference:authenticationContext:)-198hc``
+- ``delete(itemReference:authenticationContext:)-8ksyd``
 
 ### Attributes
 
 - ``Attributes``
+- ``attributes(itemReference:skipIfUIRequired:authenticationContext:)``
 - ``queryAttributes(keyType:applicationTag:applicationLabel:keySizeInBits:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
 
 ### Key Types

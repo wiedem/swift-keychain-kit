@@ -5,10 +5,13 @@ public import Security
 public extension Keychain.Keys {
     // MARK: - Add Private Key
 
-    /// Adds a private key to the Keychain.
+    /// Adds a private key to the Keychain and returns an item reference.
     ///
     /// Stores a private [SecKey](https://developer.apple.com/documentation/security/seckey) in the Keychain with the specified
     /// attributes. The key must not already exist with the same primary key attributes. Public keys are not supported.
+    ///
+    /// The returned ``ItemReference`` uniquely identifies the stored key and can be persisted for later retrieval
+    /// via ``get(itemReference:skipIfUIRequired:authenticationContext:)-21ynx``.
     ///
     /// - Parameters:
     ///   - key: The private [SecKey](https://developer.apple.com/documentation/security/seckey) to store in the
@@ -22,6 +25,8 @@ public extension Keychain.Keys {
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)
     ///     for pre-authenticated access.
     ///
+    /// - Returns: An ``ItemReference`` that uniquely identifies the stored key.
+    ///
     /// - Throws:
     ///   * ``KeychainError/duplicateItem`` if an entry with the same primary attributes exists.
     ///   * ``KeychainError`` for other Keychain operation failures.
@@ -32,6 +37,7 @@ public extension Keychain.Keys {
     ///
     /// - Note: Security Consideration: The private key represents sensitive cryptographic material.
     /// The key is stored securely in the Keychain.
+    @discardableResult
     static func addPrivateKey(
         _ key: SecKey,
         applicationTag: Data? = nil,
@@ -41,7 +47,7 @@ public extension Keychain.Keys {
         synchronizable: Bool = false,
         accessControl: Keychain.AccessControl = .afterFirstUnlockThisDeviceOnly,
         authenticationContext: LAContext? = nil
-    ) async throws(KeychainError) {
+    ) async throws(KeychainError) -> ItemReference<Self> {
         try requirePrivateKey(key)
 
         var query = baseQuery()
@@ -60,16 +66,20 @@ public extension Keychain.Keys {
 
         authenticationContext.apply(to: &query)
 
-        try Keychain.addItem(query: query)
+        let persistentRef = try Keychain.addItemReturningPersistentReference(query: query)
+        return ItemReference(persistentReferenceData: persistentRef)
     }
 }
 
 // MARK: - Generic Extensions
 
 public extension Keychain.Keys {
-    /// Adds a private key from a custom type to the Keychain.
+    /// Adds a private key from a custom type to the Keychain and returns an item reference.
     ///
     /// Generic overload that accepts any ``SecKeyRepresentable`` type. Public keys are not supported.
+    ///
+    /// The returned ``ItemReference`` uniquely identifies the stored key and can be persisted for later retrieval
+    /// via ``get(itemReference:skipIfUIRequired:authenticationContext:)-21ynx``.
     ///
     /// - Parameters:
     ///   - key: A private key conforming to ``SecKeyRepresentable`` to store in the Keychain.
@@ -81,6 +91,8 @@ public extension Keychain.Keys {
     ///   - accessControl: The access control settings for the key.
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)
     ///     for pre-authenticated access.
+    ///
+    /// - Returns: An ``ItemReference`` that uniquely identifies the stored key.
     ///
     /// - Throws:
     ///   * ``SecKeyConversionError`` if the key cannot be converted into a
@@ -94,6 +106,7 @@ public extension Keychain.Keys {
     ///
     /// - Note: Security Consideration: The private key represents sensitive cryptographic material.
     /// The key is stored securely in the Keychain.
+    @discardableResult
     static func addPrivateKey(
         _ key: some SecKeyRepresentable,
         applicationTag: Data? = nil,
@@ -103,7 +116,7 @@ public extension Keychain.Keys {
         synchronizable: Bool = false,
         accessControl: Keychain.AccessControl = .afterFirstUnlockThisDeviceOnly,
         authenticationContext: LAContext? = nil
-    ) async throws {
+    ) async throws -> ItemReference<Self> {
         try await addPrivateKey(
             key.makeSecKey(),
             applicationTag: applicationTag,

@@ -35,7 +35,7 @@ public extension Keychain.AsymmetricKeyTypeScope {
     ///
     /// - Parameter keyType: The metatype whose asymmetric key type to use.
     /// - Returns: A scope matching the type's declared algorithm and class.
-    static func keyType<T: AsymmetricKeyTypeProviding>(_ keyType: T.Type) -> Self {
+    static func keyType(_ keyType: (some AsymmetricKeyTypeProviding).Type) -> Self {
         Self.keyType(keyType.asymmetricKeyType)
     }
 }
@@ -48,7 +48,7 @@ public extension Keychain.AsymmetricKeyTypeScope {
     var keyClassScope: Keychain.AsymmetricKeyClassScope {
         switch self {
         case let .rsa(keyClassScope),
-            let .ellipticCurve(keyClassScope):
+             let .ellipticCurve(keyClassScope):
             keyClassScope
         }
     }

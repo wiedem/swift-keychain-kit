@@ -31,7 +31,7 @@ final class InternetPasswordQueryIntegrationTests {
                 _ = try? Keychain.InternetPassword.delete(
                     account: .specific(account),
                     server: .specific(keychainServer),
-                    accessGroup: .any
+                    accessGroup: .default
                 )
             }
         }
@@ -68,7 +68,7 @@ private extension InternetPasswordQueryIntegrationTests {
             try Keychain.InternetPassword.delete(
                 account: .specific(keychainAccountName),
                 server: .specific(keychainServer),
-                accessGroup: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up internet password after test: \(error)")

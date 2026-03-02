@@ -201,7 +201,7 @@ private extension SecureEnclaveKeysIntegrationTests {
         do {
             try Keychain.SecureEnclaveKeys.delete(
                 applicationTag: .specific(keychainApplicationTag),
-                accessGroup: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up secure enclave key after test: \(error)")

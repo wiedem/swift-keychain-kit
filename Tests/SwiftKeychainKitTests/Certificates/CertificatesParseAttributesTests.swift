@@ -13,8 +13,8 @@ struct CertificatesParseAttributesTests {
         let serialData = Data([0xAB, 0xCD])
         let subjectData = Data("Subject".utf8)
         let publicKeyHashData = Data("Hash".utf8)
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -52,8 +52,8 @@ struct CertificatesParseAttributesTests {
         let subjectData = Data("Subject".utf8)
         let subjectKeyIDData = Data("KeyID".utf8)
         let publicKeyHashData = Data("Hash".utf8)
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -113,8 +113,8 @@ struct CertificatesParseAttributesTests {
         let serialData = Data([0xAB, 0xCD])
         let subjectData = Data("Subject".utf8)
         let publicKeyHashData = Data("Hash".utf8)
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -169,8 +169,8 @@ struct CertificatesParseAttributesTests {
         let serialData = Data([0xAB, 0xCD])
         let subjectData = Data("Subject".utf8)
         let publicKeyHashData = Data("Hash".utf8)
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -214,8 +214,8 @@ struct CertificatesParseAttributesTests {
         let serialData = Data([0xAB, 0xCD])
         let subjectData = Data("Subject".utf8)
         let publicKeyHashData = Data("Hash".utf8)
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -242,8 +242,8 @@ struct CertificatesParseAttributesTests {
         let serialData = Data([0xAB, 0xCD])
         let subjectData = Data("Subject".utf8)
         let publicKeyHashData = Data("Hash".utf8)
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -276,6 +276,7 @@ struct CertificatesParseAttributesTests {
         #expect(attributes.label == nil)
     }
 }
+
 // MARK: - Test Case Structures
 
 extension CertificatesParseAttributesTests {
@@ -297,7 +298,7 @@ extension CertificatesParseAttributesTests {
 
         init(_ name: String, key: CFString) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
         }
 
         func removeValue(in dict: inout [String: Any]) {
@@ -312,7 +313,7 @@ extension CertificatesParseAttributesTests {
 
         init(_ name: String, key: CFString, wrongValue: @Sendable @escaping @autoclosure () -> Any) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
             self.wrongValue = wrongValue
         }
 

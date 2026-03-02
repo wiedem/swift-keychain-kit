@@ -167,7 +167,7 @@ final class ECCKeysIntegrationTests {
             _ = try? Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
                 applicationTag: .specific(sharedTag),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -190,7 +190,7 @@ final class ECCKeysIntegrationTests {
         let deleted = try await Keychain.Keys.delete(
             keyType: .ellipticCurve(.privateKey),
             applicationTag: .specific(sharedTag),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .synchronized
         )
         #expect(deleted == true)
@@ -215,7 +215,7 @@ final class ECCKeysIntegrationTests {
             _ = try? Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
                 applicationTag: .specific(sharedTag),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -238,7 +238,7 @@ final class ECCKeysIntegrationTests {
         let deleted = try await Keychain.Keys.delete(
             keyType: .ellipticCurve(.privateKey),
             applicationTag: .specific(sharedTag),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .notSynchronized
         )
         #expect(deleted == true)
@@ -263,7 +263,7 @@ final class ECCKeysIntegrationTests {
             _ = try? Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
                 applicationTag: .specific(sharedTag),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -286,7 +286,7 @@ final class ECCKeysIntegrationTests {
         let deleted = try await Keychain.Keys.delete(
             keyType: .ellipticCurve(.privateKey),
             applicationTag: .specific(sharedTag),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .any
         )
         #expect(deleted == true)
@@ -306,7 +306,6 @@ final class ECCKeysIntegrationTests {
         )
         #expect(remainingSync.isEmpty == true)
     }
-
 }
 
 // MARK: - Private Helpers
@@ -340,19 +339,11 @@ private extension ECCKeysIntegrationTests {
         do {
             try Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
-                applicationTag: .specific(applicationTag)
+                applicationTag: .specific(applicationTag),
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up private key after test: \(error)")
-        }
-
-        do {
-            try Keychain.Keys.delete(
-                keyType: .ellipticCurve(.publicKey),
-                applicationTag: .specific(applicationTag)
-            )
-        } catch {
-            print("Failed to clean up public key after test: \(error)")
         }
     }
 

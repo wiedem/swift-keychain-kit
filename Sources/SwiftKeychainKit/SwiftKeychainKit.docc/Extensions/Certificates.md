@@ -120,6 +120,10 @@ Labels are useful for:
 
 - ``Keychain/Certificates/add(_:label:accessGroup:synchronizable:accessControl:authenticationContext:)``
 
+### Retrieving Certificates by Reference
+
+- ``Keychain/Certificates/get(itemReference:skipIfUIRequired:authenticationContext:)-1noyy``
+
 ### Querying Certificates
 
 - ``Keychain/Certificates/query(certificateType:subject:issuer:serialNumber:subjectKeyID:publicKeyHash:label:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
@@ -129,10 +133,13 @@ Labels are useful for:
 
 - ``Keychain/Certificates/delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)-5sspb``
 - ``Keychain/Certificates/delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)-4hn5k``
+- ``Keychain/Certificates/delete(itemReference:authenticationContext:)-35dbf``
+- ``Keychain/Certificates/delete(itemReference:authenticationContext:)-574kx``
 
 ### Attributes
 
 - ``Keychain/Certificates/Attributes``
+- ``Keychain/Certificates/attributes(itemReference:skipIfUIRequired:authenticationContext:)``
 - ``Keychain/Certificates/queryAttributes(certificateType:subject:issuer:serialNumber:subjectKeyID:publicKeyHash:label:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
 
 ### Labels

@@ -43,7 +43,7 @@ public extension Keychain.Certificates {
     /// Synchronously deletes certificates matching the specified criteria.
     ///
     /// This is the synchronous variant of
-    /// ``delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)`` and can be safely used in
+    /// ``delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)-5sspb`` and can be safely used in
     /// `deinit` implementations or other synchronous contexts.
     ///
     /// - Parameters:

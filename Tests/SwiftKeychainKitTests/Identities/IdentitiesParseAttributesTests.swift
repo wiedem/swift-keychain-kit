@@ -13,8 +13,8 @@ struct IdentitiesParseAttributesTests {
         let serialData = "serial".data(using: .utf8)!
         let subjectData = "subject".data(using: .utf8)!
         let publicKeyHashData = "publicKeyHash".data(using: .utf8)!
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -62,8 +62,8 @@ struct IdentitiesParseAttributesTests {
         let publicKeyHashData = "publicKeyHash".data(using: .utf8)!
         let applicationLabelData = "applicationLabel".data(using: .utf8)!
         let applicationTagData = "applicationTag".data(using: .utf8)!
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -133,8 +133,8 @@ struct IdentitiesParseAttributesTests {
         let serialData = "serial".data(using: .utf8)!
         let subjectData = "subject".data(using: .utf8)!
         let publicKeyHashData = "publicKeyHash".data(using: .utf8)!
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -204,8 +204,8 @@ struct IdentitiesParseAttributesTests {
         let serialData = "serial".data(using: .utf8)!
         let subjectData = "subject".data(using: .utf8)!
         let publicKeyHashData = "publicKeyHash".data(using: .utf8)!
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -256,8 +256,8 @@ struct IdentitiesParseAttributesTests {
         let serialData = "serial".data(using: .utf8)!
         let subjectData = "subject".data(using: .utf8)!
         let publicKeyHashData = "publicKeyHash".data(using: .utf8)!
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -287,8 +287,8 @@ struct IdentitiesParseAttributesTests {
         let serialData = "serial".data(using: .utf8)!
         let subjectData = "subject".data(using: .utf8)!
         let publicKeyHashData = "publicKeyHash".data(using: .utf8)!
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrCertificateType as String: 1,
@@ -353,7 +353,7 @@ extension IdentitiesParseAttributesTests {
 
         init(_ name: String, key: CFString) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
         }
 
         func removeValue(in dict: inout [String: Any]) {
@@ -368,7 +368,7 @@ extension IdentitiesParseAttributesTests {
 
         init(_ name: String, key: CFString, wrongValue: @Sendable @escaping @autoclosure () -> Any) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
             self.wrongValue = wrongValue
         }
 

@@ -87,8 +87,7 @@ private extension GenericPasswordAddIntegrationTests {
             try Keychain.GenericPassword.delete(
                 account: .specific(keychainAccountName),
                 service: .specific(keychainServiceName),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up generic password after test: \(error)")

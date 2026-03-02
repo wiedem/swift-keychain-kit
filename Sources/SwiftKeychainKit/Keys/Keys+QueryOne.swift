@@ -154,7 +154,7 @@ public extension Keychain.Keys {
     ///
     /// - Note: Security Consideration: The returned key may represent sensitive material.
     ///   Minimize its lifetime and avoid unnecessary copies.
-    static func queryOne<Key: SecKeyInitializable & AsymmetricKeyTypeProviding> (
+    static func queryOne<Key: SecKeyInitializable & AsymmetricKeyTypeProviding>(
         applicationTag: Data,
         applicationLabel applicationLabelScope: Keychain.ApplicationLabelScope = .any,
         keySizeInBits keySizeInBitsScope: Keychain.KeySizeInBitsScope = .any,

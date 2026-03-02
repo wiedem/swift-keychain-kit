@@ -56,8 +56,7 @@ final class InternetPasswordQueryOneIntegrationTests {
                 account: .specific(account),
                 server: .specific(server),
                 port: .any,
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         }
 
@@ -103,8 +102,7 @@ final class InternetPasswordQueryOneIntegrationTests {
                 port: .any,
                 path: .any,
                 securityDomain: .any,
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         }
 
@@ -158,8 +156,7 @@ final class InternetPasswordQueryOneIntegrationTests {
             _ = try? Keychain.InternetPassword.delete(
                 account: .specific(account),
                 server: .specific(server),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         }
 
@@ -195,8 +192,7 @@ private extension InternetPasswordQueryOneIntegrationTests {
             try Keychain.InternetPassword.delete(
                 account: .specific(testAccount),
                 server: .specific(testServer),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up internet password after test: \(error)")

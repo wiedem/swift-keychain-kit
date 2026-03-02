@@ -179,6 +179,10 @@ You can work with certificates and keys separately using ``Certificates`` and ``
 
 - ``add(_:label:accessGroup:synchronizable:accessControl:authenticationContext:)``
 
+### Retrieving Identities by Reference
+
+- ``get(itemReference:skipIfUIRequired:authenticationContext:)-81a2j``
+
 ### Querying Identities
 
 - ``query(certificateType:subject:issuer:serialNumber:subjectKeyID:publicKeyHash:label:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
@@ -188,10 +192,13 @@ You can work with certificates and keys separately using ``Certificates`` and ``
 
 - ``delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)-63i1r``
 - ``delete(issuer:serialNumber:label:accessGroup:synchronizable:authenticationContext:)-7zfgg``
+- ``delete(itemReference:authenticationContext:)-9f5q2``
+- ``delete(itemReference:authenticationContext:)-7v1oe``
 
 ### Attributes
 
 - ``Attributes``
+- ``attributes(itemReference:skipIfUIRequired:authenticationContext:)``
 - ``queryAttributes(certificateType:subject:issuer:serialNumber:subjectKeyID:publicKeyHash:label:accessGroup:synchronizable:skipItemsIfUIRequired:authenticationContext:limit:)``
 
 ### Labels

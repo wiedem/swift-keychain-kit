@@ -59,7 +59,7 @@ struct AsymmetricKeyClassScopeTests {
     @Test("apply with any scope removes kSecAttrKeyClass")
     func applyWithAnyScopeRemovesAttribute() {
         var query: [String: Any] = [
-            kSecAttrKeyClass as String: kSecAttrKeyClassPublic
+            kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
         ]
         Keychain.AsymmetricKeyClassScope.any.apply(to: &query)
 

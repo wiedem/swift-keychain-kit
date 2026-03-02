@@ -84,9 +84,9 @@ struct AccessControlTests {
         let accessControl = Keychain.AccessControl.afterFirstUnlock
         let result = try accessControl.makeSecAccessControl()
 
-        let expected = SecAccessControlCreateWithFlags(
+        let expected = try #require(SecAccessControlCreateWithFlags(
             nil, kSecAttrAccessibleAfterFirstUnlock, [], nil
-        )!
+        ))
         #expect(result == expected)
     }
 
@@ -98,9 +98,9 @@ struct AccessControlTests {
         )
         let result = try accessControl.makeSecAccessControl()
 
-        let expected = SecAccessControlCreateWithFlags(
+        let expected = try #require(SecAccessControlCreateWithFlags(
             nil, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .devicePasscode, nil
-        )!
+        ))
         #expect(result == expected)
     }
 

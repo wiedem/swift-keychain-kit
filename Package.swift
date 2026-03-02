@@ -36,7 +36,7 @@ let package = Package(
         .testTarget(
             name: "SwiftKeychainKitTests",
             dependencies: [
-                "SwiftKeychainKit"
+                "SwiftKeychainKit",
             ],
             swiftSettings: commonSwiftSettings
         ),

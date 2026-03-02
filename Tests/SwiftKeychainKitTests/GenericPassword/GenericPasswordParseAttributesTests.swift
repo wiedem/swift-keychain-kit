@@ -9,8 +9,8 @@ struct GenericPasswordParseAttributesTests {
 
     @Test("parseAttributes with minimal required attributes")
     func parseAttributesWithMinimalAttributes() throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrAccount as String: "test@example.com",
@@ -36,8 +36,8 @@ struct GenericPasswordParseAttributesTests {
 
     @Test("parseAttributes with all attributes")
     func parseAttributesWithAllAttributes() throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrAccount as String: "user@example.com",
@@ -85,8 +85,8 @@ struct GenericPasswordParseAttributesTests {
         ]
     )
     func parseAttributesWithSynchronizableValues(testCase: SynchronizableTestCase) throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrAccount as String: "test@example.com",
@@ -122,8 +122,8 @@ struct GenericPasswordParseAttributesTests {
         ]
     )
     func parseAttributesReturnsNilWhenRequiredAttributeMissing(testCase: MissingAttributeTestCase) {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrAccount as String: "test@example.com",
@@ -159,8 +159,8 @@ struct GenericPasswordParseAttributesTests {
         ]
     )
     func parseAttributesThrowsWhenRequiredAttributeHasWrongType(testCase: WrongTypeTestCase) {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
             kSecAttrAccount as String: "test@example.com",
@@ -180,8 +180,8 @@ struct GenericPasswordParseAttributesTests {
 
     @Test("parseAttributes ignores optional attributes with wrong types")
     func parseAttributesIgnoresOptionalAttributesWithWrongTypes() throws {
-        let creationDate = Date(timeIntervalSince1970: 1000000000)
-        let modificationDate = Date(timeIntervalSince1970: 1100000000)
+        let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
             kSecAttrAccount as String: "test@example.com",
@@ -191,7 +191,7 @@ struct GenericPasswordParseAttributesTests {
             kSecAttrModificationDate as String: modificationDate,
             kSecAttrAccessGroup as String: "TEAMID.com.example.default",
             kSecAttrLabel as String: 789, // Wrong type - should be ignored
-            kSecAttrDescription as String: 101112, // Wrong type - should be ignored
+            kSecAttrDescription as String: 101_112, // Wrong type - should be ignored
         ]
 
         let attributes = try Keychain.GenericPassword.parseAttributes(from: dict)
@@ -205,7 +205,6 @@ struct GenericPasswordParseAttributesTests {
         #expect(attributes.label == nil)
         #expect(attributes.itemDescription == nil)
     }
-
 }
 
 // MARK: - Test Case Structures
@@ -229,7 +228,7 @@ extension GenericPasswordParseAttributesTests {
 
         init(_ name: String, key: CFString) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
         }
 
         func removeValue(in dict: inout [String: Any]) {
@@ -244,7 +243,7 @@ extension GenericPasswordParseAttributesTests {
 
         init(_ name: String, key: CFString, wrongValue: @Sendable @escaping @autoclosure () -> Any) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
             self.wrongValue = wrongValue
         }
 

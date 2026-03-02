@@ -26,7 +26,7 @@ final class InternetPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.InternetPassword.delete(
             account: .specific(keychainAccountName),
             server: .specific(keychainServer),
-            accessGroup: .any
+            accessGroup: .default
         )
         #expect(deleted == true)
 
@@ -42,7 +42,7 @@ final class InternetPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.InternetPassword.delete(
             account: .specific(keychainAccountName),
             server: .specific(keychainServer),
-            accessGroup: .any
+            accessGroup: .default
         )
         #expect(deleted == false)
     }
@@ -58,7 +58,7 @@ final class InternetPasswordDeleteIntegrationTests {
             _ = try? Keychain.InternetPassword.delete(
                 account: .specific(testAccount),
                 server: .specific(testServer),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -83,7 +83,7 @@ final class InternetPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.InternetPassword.delete(
             account: .specific(testAccount),
             server: .specific(testServer),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .synchronized
         )
         #expect(deleted == true)
@@ -108,7 +108,7 @@ final class InternetPasswordDeleteIntegrationTests {
             _ = try? Keychain.InternetPassword.delete(
                 account: .specific(testAccount),
                 server: .specific(testServer),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -133,7 +133,7 @@ final class InternetPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.InternetPassword.delete(
             account: .specific(testAccount),
             server: .specific(testServer),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .notSynchronized
         )
         #expect(deleted == true)
@@ -158,7 +158,7 @@ final class InternetPasswordDeleteIntegrationTests {
             _ = try? Keychain.InternetPassword.delete(
                 account: .specific(testAccount),
                 server: .specific(testServer),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -183,7 +183,7 @@ final class InternetPasswordDeleteIntegrationTests {
         let deleted = try await Keychain.InternetPassword.delete(
             account: .specific(testAccount),
             server: .specific(testServer),
-            accessGroup: .any,
+            accessGroup: .default,
             synchronizable: .any
         )
         #expect(deleted == true)
@@ -213,7 +213,7 @@ private extension InternetPasswordDeleteIntegrationTests {
             try Keychain.InternetPassword.delete(
                 account: .specific(keychainAccountName),
                 server: .specific(keychainServer),
-                accessGroup: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up internet password after test: \(error)")

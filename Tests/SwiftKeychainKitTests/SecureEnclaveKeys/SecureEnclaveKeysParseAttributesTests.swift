@@ -118,7 +118,7 @@ extension SecureEnclaveKeysParseAttributesTests {
 
         init(_ name: String, key: CFString) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
         }
 
         func removeValue(in dict: inout [String: Any]) {
@@ -133,7 +133,7 @@ extension SecureEnclaveKeysParseAttributesTests {
 
         init(_ name: String, key: CFString, wrongValue: @Sendable @escaping @autoclosure () -> Any) {
             self.name = name
-            self.secAttrKey = key as String
+            secAttrKey = key as String
             self.wrongValue = wrongValue
         }
 

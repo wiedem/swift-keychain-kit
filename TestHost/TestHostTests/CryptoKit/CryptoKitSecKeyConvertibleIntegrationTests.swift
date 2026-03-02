@@ -134,8 +134,7 @@ private extension CryptoKitSecKeyConvertibleIntegrationTests {
             try Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
                 applicationTag: .specific(applicationTag),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Error cleaning up: \(error)")

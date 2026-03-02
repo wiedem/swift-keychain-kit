@@ -139,7 +139,7 @@ private extension InternetPasswordAddIntegrationTests {
             try Keychain.InternetPassword.delete(
                 account: .specific(keychainAccountName),
                 server: .specific(keychainServer),
-                accessGroup: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up internet password after test: \(error)")

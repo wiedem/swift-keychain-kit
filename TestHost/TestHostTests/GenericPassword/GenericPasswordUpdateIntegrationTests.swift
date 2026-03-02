@@ -80,8 +80,15 @@ final class GenericPasswordUpdateIntegrationTests {
 
         defer {
             _ = try? Keychain.GenericPassword.delete(
+                account: .specific(syncAccount),
                 service: .specific(service),
-                accessGroup: .any,
+                accessGroup: .default,
+                synchronizable: .any
+            )
+            _ = try? Keychain.GenericPassword.delete(
+                account: .specific(nonSyncAccount),
+                service: .specific(service),
+                accessGroup: .default,
                 synchronizable: .any
             )
         }
@@ -144,7 +151,7 @@ private extension GenericPasswordUpdateIntegrationTests {
             try Keychain.GenericPassword.delete(
                 account: .specific(keychainAccountName),
                 service: .specific(keychainServiceName),
-                accessGroup: .any,
+                accessGroup: .default,
                 synchronizable: .any
             )
         } catch {

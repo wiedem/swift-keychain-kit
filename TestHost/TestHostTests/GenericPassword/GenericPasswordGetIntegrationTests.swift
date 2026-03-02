@@ -24,7 +24,7 @@ final class GenericPasswordGetIntegrationTests {
             service: keychainServiceName
         )
 
-        let retrieved = try requireUnwrapped(await Keychain.GenericPassword.get(
+        let retrieved = try await requireUnwrapped(Keychain.GenericPassword.get(
             account: keychainAccountName,
             service: keychainServiceName
         ))
@@ -49,8 +49,7 @@ private extension GenericPasswordGetIntegrationTests {
             try Keychain.GenericPassword.delete(
                 account: .specific(keychainAccountName),
                 service: .specific(keychainServiceName),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up generic password after test: \(error)")

@@ -74,22 +74,27 @@ If two items have the same account and service, they are considered duplicates.
 
 ### Adding Passwords
 
-- ``Keychain/GenericPassword/add(_:account:service:label:accessGroup:synchronizable:accessControl:authenticationContext:)-5leyk``
-- ``Keychain/GenericPassword/add(_:account:service:label:accessGroup:synchronizable:accessControl:authenticationContext:)-4r3cl``
+- ``Keychain/GenericPassword/add(_:account:service:label:accessGroup:synchronizable:accessControl:authenticationContext:)-7kltu``
+- ``Keychain/GenericPassword/add(_:account:service:label:accessGroup:synchronizable:accessControl:authenticationContext:)-5du5t``
 
 ### Retrieving Passwords
 
-- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->SecretData?``
-- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->Password?``
+- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-1w6be``
+- ``Keychain/GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-p27p``
+- ``Keychain/GenericPassword/get(itemReference:skipIfUIRequired:authenticationContext:)-1f1np``
+- ``Keychain/GenericPassword/get(itemReference:skipIfUIRequired:authenticationContext:)-85sp2``
 
 ### Updating Passwords
 
 - ``Keychain/GenericPassword/update(account:service:accessGroup:synchronizable:to:authenticationContext:)``
+- ``Keychain/GenericPassword/update(itemReference:to:authenticationContext:)-9ljqx``
 
 ### Deleting Passwords
 
 - ``Keychain/GenericPassword/delete(account:service:accessGroup:synchronizable:authenticationContext:)-9zdmx``
 - ``Keychain/GenericPassword/delete(account:service:accessGroup:synchronizable:authenticationContext:)-9wgwr``
+- ``Keychain/GenericPassword/delete(itemReference:authenticationContext:)-3867x``
+- ``Keychain/GenericPassword/delete(itemReference:authenticationContext:)-78klb``
 
 ### Querying Multiple Items
 
@@ -100,6 +105,7 @@ If two items have the same account and service, they are considered duplicates.
 ### Attributes
 
 - ``Attributes``
+- ``attributes(itemReference:skipIfUIRequired:authenticationContext:)``
 
 ## See Also
 

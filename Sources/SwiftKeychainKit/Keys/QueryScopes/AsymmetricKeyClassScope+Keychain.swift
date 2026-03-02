@@ -1,6 +1,6 @@
 internal import Foundation
 
-extension Keychain.AsymmetricKeyClassScope{
+extension Keychain.AsymmetricKeyClassScope {
     func apply(to query: inout [String: Any]) {
         if let keychainValue {
             query[kSecAttrKeyClass as String] = keychainValue

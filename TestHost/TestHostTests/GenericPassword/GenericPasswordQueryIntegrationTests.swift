@@ -22,7 +22,7 @@ final class GenericPasswordQueryIntegrationTests {
                 _ = try? Keychain.GenericPassword.delete(
                     account: .specific(account),
                     service: .specific(keychainServiceName),
-                    accessGroup: .any
+                    accessGroup: .default
                 )
             }
         }
@@ -52,7 +52,7 @@ final class GenericPasswordQueryIntegrationTests {
                 _ = try? Keychain.GenericPassword.delete(
                     account: .specific(account),
                     service: .specific(keychainServiceName),
-                    accessGroup: .any
+                    accessGroup: .default
                 )
             }
         }
@@ -94,7 +94,7 @@ final class GenericPasswordQueryIntegrationTests {
                 _ = try? Keychain.GenericPassword.delete(
                     account: .specific(account),
                     service: .specific(keychainServiceName),
-                    accessGroup: .any
+                    accessGroup: .default
                 )
             }
         }
@@ -134,8 +134,7 @@ private extension GenericPasswordQueryIntegrationTests {
             try Keychain.GenericPassword.delete(
                 account: .specific(keychainAccountName),
                 service: .specific(keychainServiceName),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up generic password after test: \(error)")

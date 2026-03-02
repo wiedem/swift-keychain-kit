@@ -24,7 +24,7 @@ struct CryptoKitSecKeyConvertibleTests {
         let secKey = try privateKey.makeSecKey()
 
         // Verify it's a valid private key
-        let attributes = SecKeyCopyAttributes(secKey) as! [String: Any]
+        let attributes = try #require(SecKeyCopyAttributes(secKey) as? [String: Any])
         #expect(attributes[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(attributes[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
     }
@@ -48,7 +48,7 @@ struct CryptoKitSecKeyConvertibleTests {
         let secKey = try privateKey.makeSecKey()
 
         // Verify it's a valid private key
-        let attributes = SecKeyCopyAttributes(secKey) as! [String: Any]
+        let attributes = try #require(SecKeyCopyAttributes(secKey) as? [String: Any])
         #expect(attributes[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(attributes[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
     }
@@ -72,7 +72,7 @@ struct CryptoKitSecKeyConvertibleTests {
         let secKey = try privateKey.makeSecKey()
 
         // Verify it's a valid private key
-        let attributes = SecKeyCopyAttributes(secKey) as! [String: Any]
+        let attributes = try #require(SecKeyCopyAttributes(secKey) as? [String: Any])
         #expect(attributes[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(attributes[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
     }
@@ -96,7 +96,7 @@ struct CryptoKitSecKeyConvertibleTests {
         let secKey = try privateKey.makeSecKey()
 
         // Verify it's a valid private key
-        let attributes = SecKeyCopyAttributes(secKey) as! [String: Any]
+        let attributes = try #require(SecKeyCopyAttributes(secKey) as? [String: Any])
         #expect(attributes[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(attributes[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
     }
@@ -120,7 +120,7 @@ struct CryptoKitSecKeyConvertibleTests {
         let secKey = try privateKey.makeSecKey()
 
         // Verify it's a valid private key
-        let attributes = SecKeyCopyAttributes(secKey) as! [String: Any]
+        let attributes = try #require(SecKeyCopyAttributes(secKey) as? [String: Any])
         #expect(attributes[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(attributes[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
     }
@@ -144,7 +144,7 @@ struct CryptoKitSecKeyConvertibleTests {
         let secKey = try privateKey.makeSecKey()
 
         // Verify it's a valid private key
-        let attributes = SecKeyCopyAttributes(secKey) as! [String: Any]
+        let attributes = try #require(SecKeyCopyAttributes(secKey) as? [String: Any])
         #expect(attributes[kSecAttrKeyClass as String].cast() == kSecAttrKeyClassPrivate)
         #expect(attributes[kSecAttrKeyType as String].cast() == kSecAttrKeyTypeECSECPrimeRandom)
     }

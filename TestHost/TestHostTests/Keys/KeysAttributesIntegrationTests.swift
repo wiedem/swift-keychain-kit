@@ -117,8 +117,7 @@ private extension KeysAttributesIntegrationTests {
             try Keychain.Keys.delete(
                 keyType: .rsa(.privateKey),
                 applicationTag: .specific(keychainApplicationTag),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up RSA private key after test: \(error)")
@@ -128,8 +127,7 @@ private extension KeysAttributesIntegrationTests {
             try Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
                 applicationTag: .specific(keychainApplicationTag),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Failed to clean up ECC private key after test: \(error)")

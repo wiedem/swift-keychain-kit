@@ -43,8 +43,7 @@ private extension IdentitiesAttributesIntegrationTests {
     func cleanup() {
         do {
             try Keychain.Identities.delete(
-                label: .specific(keychainLabel),
-                synchronizable: .any
+                label: .specific(keychainLabel)
             )
         } catch {
             print("Failed to clean up identity after test: \(error)")

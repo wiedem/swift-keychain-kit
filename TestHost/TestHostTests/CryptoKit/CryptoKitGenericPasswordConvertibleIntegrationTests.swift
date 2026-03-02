@@ -72,8 +72,7 @@ private extension CryptoKitGenericPasswordConvertibleIntegrationTests {
             try Keychain.GenericPassword.delete(
                 account: .specific(account),
                 service: .specific(service),
-                accessGroup: .any,
-                synchronizable: .any
+                accessGroup: .default
             )
         } catch {
             print("Error cleaning up: \(error)")

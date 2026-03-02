@@ -21,7 +21,7 @@ public extension Keychain {
     /// ## Use Cases
     ///
     /// This type is used for operations that must ensure uniqueness:
-    /// - ``GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)->SecretData?``
+    /// - ``GenericPassword/get(account:service:accessGroup:synchronizable:skipIfUIRequired:authenticationContext:)-1w6be``
     /// requires a specific access group to guarantee at most one result
     /// - Add operations where you want to explicitly specify which access group to use
     ///
