@@ -293,8 +293,7 @@ private extension KeysSkipUITests {
         do {
             try Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
-                applicationTag: .specific(keychainApplicationTag),
-                accessGroup: .any
+                applicationTag: .specific(keychainApplicationTag)
             )
         } catch {
             print("Failed to clean up key after test: \(error)")
