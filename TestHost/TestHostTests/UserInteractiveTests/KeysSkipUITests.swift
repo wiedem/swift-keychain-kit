@@ -187,8 +187,10 @@ final class KeysSkipUITests {
 
     @Test("query() with skipItemsIfUIRequired filters out items requiring UI")
     func queryMultipleItemsWithMixedRequirements() async throws {
-        // Test password value
         let appPassword = "app-password-123".data(using: .utf8)!
+
+        // Shared application label to scope the query to this test
+        let sharedApplicationLabel = "KeysSkipUITests-mixed-\(UUID().uuidString)".data(using: .utf8)!
 
         // Different application tags for different items
         let tag1 = "test-key-1".data(using: .utf8)!
@@ -196,21 +198,17 @@ final class KeysSkipUITests {
         let tag3 = "test-key-3".data(using: .utf8)!
 
         defer {
-            // Cleanup items with different tags than the class default
             _ = try? Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
-                applicationTag: .specific(tag1),
-                accessGroup: .any
+                applicationTag: .specific(tag1)
             )
             _ = try? Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
-                applicationTag: .specific(tag2),
-                accessGroup: .any
+                applicationTag: .specific(tag2)
             )
             _ = try? Keychain.Keys.delete(
                 keyType: .ellipticCurve(.privateKey),
-                applicationTag: .specific(tag3),
-                accessGroup: .any
+                applicationTag: .specific(tag3)
             )
         }
 
@@ -218,7 +216,8 @@ final class KeysSkipUITests {
         let (_, privateKey1) = try Self.makeKeyPair()
         try await Keychain.Keys.addPrivateKey(
             privateKey1,
-            applicationTag: tag1
+            applicationTag: tag1,
+            applicationLabel: .data(sharedApplicationLabel)
         )
 
         // Item 2: User presence required - requires UI
@@ -226,6 +225,7 @@ final class KeysSkipUITests {
         try await Keychain.Keys.addPrivateKey(
             privateKey2,
             applicationTag: tag2,
+            applicationLabel: .data(sharedApplicationLabel),
             accessControl: .make(
                 accessibility: .whenUnlockedThisDeviceOnly,
                 constraint: .userPresence
@@ -240,6 +240,7 @@ final class KeysSkipUITests {
         try await Keychain.Keys.addPrivateKey(
             privateKey3,
             applicationTag: tag3,
+            applicationLabel: .data(sharedApplicationLabel),
             accessControl: .make(
                 accessibility: .whenUnlockedThisDeviceOnly,
                 constraint: .applicationPassword
@@ -251,9 +252,9 @@ final class KeysSkipUITests {
         // Should return only item 1 (no UI required)
         let results = try await Keychain.Keys.query(
             keyType: .ellipticCurve(.privateKey),
-            accessGroup: .any,
+            applicationLabel: .specific(sharedApplicationLabel),
             skipItemsIfUIRequired: true,
-            limit: .count(2)
+            limit: .count(4)
         )
 
         // Should contain only the item without access control
