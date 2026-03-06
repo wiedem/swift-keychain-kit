@@ -18,7 +18,7 @@ final class CertificatesAttributesIntegrationTests {
             commonName: "Test-Attributes-\(UUID().uuidString)"
         )
 
-        try await Keychain.Certificates.add(
+        let itemReference = try await Keychain.Certificates.add(
             certificate,
             label: .custom(keychainLabel),
             accessGroup: .default,
@@ -31,6 +31,7 @@ final class CertificatesAttributesIntegrationTests {
 
         #expect(attrs.count == 1)
         let first = try requireUnwrapped(attrs.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.label == keychainLabel)
         #expect(first.accessGroup.isEmpty == false)
         #expect(first.synchronizable == false)
@@ -42,7 +43,7 @@ final class CertificatesAttributesIntegrationTests {
             commonName: "Test-Attributes-Minimal-\(UUID().uuidString)"
         )
 
-        try await Keychain.Certificates.add(
+        let itemReference = try await Keychain.Certificates.add(
             certificate,
             label: .custom(keychainLabel)
         )
@@ -53,6 +54,7 @@ final class CertificatesAttributesIntegrationTests {
 
         #expect(attrs.count == 1)
         let first = try requireUnwrapped(attrs.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.label == keychainLabel)
     }
 }

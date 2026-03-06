@@ -1,11 +1,13 @@
 public import LocalAuthentication
-private import Security
 
 public extension Keychain.InternetPassword {
     /// Attributes of an internet password stored in the Keychain.
     ///
     /// Contains metadata about an internet password entry.
-    struct Attributes: Sendable {
+    struct Attributes: Hashable, Sendable {
+        /// A reference to this item in the Keychain.
+        public let itemReference: ItemReference<Keychain.InternetPassword>
+
         /// The account name (username) for this password.
         public let account: String
 
@@ -126,7 +128,8 @@ public extension Keychain.InternetPassword {
 
 extension Keychain.InternetPassword {
     static func parseAttributes(from dict: [String: Any]) throws(KeychainError) -> Attributes {
-        guard let account = Keychain.ItemAttributes.Account.get(from: dict),
+        guard let persistentReferenceData = Keychain.ItemAttributes.PersistentReference.get(from: dict),
+              let account = Keychain.ItemAttributes.Account.get(from: dict),
               let server = Keychain.ItemAttributes.Server.get(from: dict),
               let itemAccessibility: Keychain.ItemAccessibility = Keychain.ItemAttributes.ItemAccessibility.get(from: dict),
               let accessGroup = Keychain.ItemAttributes.AccessGroup.get(from: dict),
@@ -144,6 +147,7 @@ extension Keychain.InternetPassword {
         )
 
         return Attributes(
+            itemReference: ItemReference(persistentReferenceData: persistentReferenceData),
             account: account,
             server: server,
             networkProtocol: networkProtocol,

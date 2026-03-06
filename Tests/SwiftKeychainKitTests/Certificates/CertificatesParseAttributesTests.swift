@@ -15,8 +15,10 @@ struct CertificatesParseAttributesTests {
         let publicKeyHashData = Data("Hash".utf8)
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrCertificateType as String: 1,
             kSecAttrIssuer as String: issuerData,
             kSecAttrSerialNumber as String: serialData,
@@ -30,6 +32,7 @@ struct CertificatesParseAttributesTests {
 
         let attributes = try Keychain.Certificates.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.certificateType == 1)
         #expect(attributes.issuer == issuerData)
         #expect(attributes.serialNumber == serialData)
@@ -54,8 +57,10 @@ struct CertificatesParseAttributesTests {
         let publicKeyHashData = Data("Hash".utf8)
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrCertificateType as String: 1,
             kSecAttrIssuer as String: issuerData,
             kSecAttrSerialNumber as String: serialData,
@@ -73,6 +78,7 @@ struct CertificatesParseAttributesTests {
 
         let attributes = try Keychain.Certificates.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.certificateType == 1)
         #expect(attributes.issuer == issuerData)
         #expect(attributes.serialNumber == serialData)
@@ -117,6 +123,7 @@ struct CertificatesParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrCertificateType as String: 1,
             kSecAttrIssuer as String: issuerData,
             kSecAttrSerialNumber as String: serialData,
@@ -162,6 +169,10 @@ struct CertificatesParseAttributesTests {
                 "publicKeyHash missing",
                 key: kSecAttrPublicKeyHash
             ),
+            MissingAttributeTestCase(
+                "persistent reference missing",
+                key: kSecValuePersistentRef
+            ),
         ]
     )
     func parseAttributesReturnsNilWhenRequiredAttributeMissing(testCase: MissingAttributeTestCase) {
@@ -173,6 +184,7 @@ struct CertificatesParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrCertificateType as String: 1,
             kSecAttrIssuer as String: issuerData,
             kSecAttrSerialNumber as String: serialData,
@@ -218,6 +230,7 @@ struct CertificatesParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrCertificateType as String: 1,
             kSecAttrIssuer as String: issuerData,
             kSecAttrSerialNumber as String: serialData,
@@ -246,6 +259,7 @@ struct CertificatesParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrCertificateType as String: 1,
             kSecAttrIssuer as String: issuerData,
             kSecAttrSerialNumber as String: serialData,

@@ -10,8 +10,10 @@ struct KeysParseAttributesTests {
     @Test("parseAttributes with minimal required attributes")
     func parseAttributesWithMinimalAttributes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecAttrKeySizeInBits as String: 2048,
@@ -20,6 +22,7 @@ struct KeysParseAttributesTests {
 
         let attributes = try Keychain.Keys.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.algorithm == .rsa)
         #expect(attributes.keyClass == .privateKey)
         #expect(attributes.keySizeInBits == 2048)
@@ -34,9 +37,11 @@ struct KeysParseAttributesTests {
     @Test("parseAttributes with all attributes")
     func parseAttributesWithAllAttributes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
         let applicationLabel = Data("label".utf8)
         let applicationTag = Data("tag".utf8)
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
             kSecAttrKeyClass as String: kSecAttrKeyClassPublic,
             kSecAttrKeySizeInBits as String: 256,
@@ -50,6 +55,7 @@ struct KeysParseAttributesTests {
 
         let attributes = try Keychain.Keys.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.algorithm == .ellipticCurve)
         #expect(attributes.keyClass == .publicKey)
         #expect(attributes.keySizeInBits == 256)
@@ -78,12 +84,17 @@ struct KeysParseAttributesTests {
                 "keySizeInBits missing",
                 key: kSecAttrKeySizeInBits
             ),
+            MissingAttributeTestCase(
+                "persistent reference missing",
+                key: kSecValuePersistentRef
+            ),
         ]
     )
     func parseAttributesReturnsNilWhenRequiredAttributeMissing(testCase: MissingAttributeTestCase) {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecAttrKeySizeInBits as String: 2048,
@@ -123,6 +134,7 @@ struct KeysParseAttributesTests {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecAttrKeySizeInBits as String: 2048,
@@ -140,6 +152,7 @@ struct KeysParseAttributesTests {
     func parseAttributesIgnoresOptionalAttributesWithWrongTypes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
             kSecAttrKeyClass as String: kSecAttrKeyClassPrivate,
             kSecAttrKeySizeInBits as String: 2048,

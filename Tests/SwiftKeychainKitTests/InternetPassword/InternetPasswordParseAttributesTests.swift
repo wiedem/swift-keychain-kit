@@ -11,8 +11,10 @@ struct InternetPasswordParseAttributesTests {
     func parseAttributesWithMinimalAttributes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrAccount as String: "test@example.com",
             kSecAttrServer as String: "example.com",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -23,6 +25,7 @@ struct InternetPasswordParseAttributesTests {
 
         let attributes = try Keychain.InternetPassword.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.account == "test@example.com")
         #expect(attributes.server == "example.com")
         #expect(attributes.itemAccessibility == .afterFirstUnlockThisDeviceOnly)
@@ -42,8 +45,10 @@ struct InternetPasswordParseAttributesTests {
     func parseAttributesWithAllAttributes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrAccount as String: "user@example.com",
             kSecAttrServer as String: "example.com",
             kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked,
@@ -61,6 +66,7 @@ struct InternetPasswordParseAttributesTests {
 
         let attributes = try Keychain.InternetPassword.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.account == "user@example.com")
         #expect(attributes.server == "example.com")
         #expect(attributes.itemAccessibility == .whenUnlocked)
@@ -101,6 +107,7 @@ struct InternetPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrServer as String: "example.com",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -130,6 +137,10 @@ struct InternetPasswordParseAttributesTests {
                 "server missing",
                 key: kSecAttrServer
             ),
+            MissingAttributeTestCase(
+                "persistent reference missing",
+                key: kSecValuePersistentRef
+            ),
         ]
     )
     func parseAttributesReturnsNilWhenRequiredAttributeMissing(testCase: MissingAttributeTestCase) {
@@ -137,6 +148,7 @@ struct InternetPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrServer as String: "example.com",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -174,6 +186,7 @@ struct InternetPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrServer as String: "example.com",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -195,6 +208,7 @@ struct InternetPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrServer as String: "example.com",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,

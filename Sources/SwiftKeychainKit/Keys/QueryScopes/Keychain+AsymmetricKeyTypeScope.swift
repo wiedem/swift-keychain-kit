@@ -25,7 +25,7 @@ public extension Keychain.AsymmetricKeyTypeScope {
     /// - Parameter keyType: The key type to create a scope from.
     /// - Returns: A scope matching the key type's algorithm and class.
     static func keyType(_ keyType: AsymmetricKeyType) -> Self {
-        keyType.keychainQueryScope
+        keyType.scope
     }
 
     /// Creates a scope from a type conforming to ``AsymmetricKeyTypeProviding``.

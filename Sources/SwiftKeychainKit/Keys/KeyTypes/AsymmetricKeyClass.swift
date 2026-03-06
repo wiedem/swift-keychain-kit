@@ -1,7 +1,8 @@
 /// Represents the class of an asymmetric cryptographic key in a public-private key pair.
 ///
 /// Asymmetric cryptography uses pairs of keys where each key performs a different function. This enum distinguishes between
-/// the public and private components of such key pairs.
+/// the public and private components of such key pairs. Use ``scope`` to convert this value into a
+/// ``Keychain/AsymmetricKeyClassScope`` for query and delete operations.
 public enum AsymmetricKeyClass: Sendable, Equatable, CaseIterable {
     /// A public key of a public-private key pair.
     ///

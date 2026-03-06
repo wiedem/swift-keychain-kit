@@ -152,6 +152,7 @@ extension Keychain {
     ) throws(KeychainError) -> [T] {
         var query = query
         query[kSecReturnAttributes as String] = true
+        query[kSecReturnPersistentRef as String] = true
         try ItemAttributes.QueryLimit.apply(limit, to: &query)
 
         return try queryItems(query: query) { result throws(KeychainError) -> [T] in

@@ -3,10 +3,10 @@ import Testing
 
 @Suite("AsymmetricKeyType Tests")
 struct AsymmetricKeyTypeTests {
-    // MARK: - keychainQueryScope Tests
+    // MARK: - scope Tests
 
     @Test(
-        "keychainQueryScope returns expected scope",
+        "scope returns expected scope",
         arguments: [
             TestCase(
                 "RSA public key",
@@ -30,8 +30,8 @@ struct AsymmetricKeyTypeTests {
             ),
         ]
     )
-    func keychainQueryScopeReturnsExpectedScope(testCase: TestCase) {
-        let scope = testCase.input.keychainQueryScope
+    func scopeReturnsExpectedScope(testCase: TestCase) {
+        let scope = testCase.input.scope
         #expect(scope == testCase.expected)
     }
 }

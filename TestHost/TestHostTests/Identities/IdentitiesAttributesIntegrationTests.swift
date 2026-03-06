@@ -18,7 +18,7 @@ final class IdentitiesAttributesIntegrationTests {
             commonName: "Test-Attributes-\(UUID().uuidString)"
         )
 
-        try await Keychain.Identities.add(
+        let itemReference = try await Keychain.Identities.add(
             identity,
             label: .custom(keychainLabel),
             accessGroup: .default,
@@ -31,6 +31,7 @@ final class IdentitiesAttributesIntegrationTests {
 
         #expect(attrs.count == 1)
         let first = try requireUnwrapped(attrs.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.label == keychainLabel)
         #expect(first.accessGroup.isEmpty == false)
         #expect(first.synchronizable == false)

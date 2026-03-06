@@ -18,7 +18,7 @@ final class GenericPasswordAttributesIntegrationTests {
         let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
         let label = "Test Attributes Label"
 
-        try await Keychain.GenericPassword.add(
+        let itemReference = try await Keychain.GenericPassword.add(
             password,
             account: keychainAccountName,
             service: keychainServiceName,
@@ -33,6 +33,7 @@ final class GenericPasswordAttributesIntegrationTests {
 
         #expect(attributes.count == 1)
         let first = try requireUnwrapped(attributes.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.account == keychainAccountName)
         #expect(first.service == keychainServiceName)
         #expect(first.label == label)
@@ -43,7 +44,7 @@ final class GenericPasswordAttributesIntegrationTests {
     func attributesReturnsMinimalMetadata() async throws {
         let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
 
-        try await Keychain.GenericPassword.add(
+        let itemReference = try await Keychain.GenericPassword.add(
             password,
             account: keychainAccountName,
             service: keychainServiceName
@@ -56,6 +57,7 @@ final class GenericPasswordAttributesIntegrationTests {
 
         #expect(attributes.count == 1)
         let first = try requireUnwrapped(attributes.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.account == keychainAccountName)
         #expect(first.service == keychainServiceName)
     }

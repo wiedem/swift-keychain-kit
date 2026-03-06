@@ -108,6 +108,26 @@ try await Keychain.InternetPassword.delete(
 )
 ```
 
+## Querying Attributes
+
+Get metadata about stored passwords and obtain item references for subsequent operations:
+
+```swift
+let attributes = try await Keychain.InternetPassword.queryAttributes(
+    server: .specific("api.example.com"),
+    limit: .unlimited
+)
+
+for attr in attributes {
+    print("Account: \(attr.account), Server: \(attr.server)")
+
+    // Use the item reference to retrieve the password
+    let password = try await Keychain.InternetPassword.get(
+        itemReference: attr.itemReference
+    )
+}
+```
+
 ## Primary Key
 
 Internet passwords are uniquely identified by a combination of attributes:

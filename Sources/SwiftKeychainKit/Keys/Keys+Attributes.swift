@@ -1,12 +1,14 @@
 public import Foundation
 public import LocalAuthentication
-private import Security
 
 public extension Keychain.Keys {
     /// Attributes of a cryptographic key stored in the Keychain.
     ///
     /// Contains metadata about a key, such as its type, size, and labels.
-    struct Attributes: Sendable {
+    struct Attributes: Hashable, Sendable {
+        /// A reference to this item in the Keychain.
+        public let itemReference: ItemReference<Keychain.Keys>
+
         /// The class of the key (public, private, or symmetric).
         public let keyClass: KeyClass
 
@@ -99,7 +101,8 @@ public extension Keychain.Keys {
 
 extension Keychain.Keys {
     static func parseAttributes(from dict: [String: Any]) throws(KeychainError) -> Attributes {
-        guard let algorithm = KeyAlgorithm.get(from: dict),
+        guard let persistentReferenceData = Keychain.ItemAttributes.PersistentReference.get(from: dict),
+              let algorithm = KeyAlgorithm.get(from: dict),
               let keyClass = KeyClass.get(from: dict),
               let keySizeInBits = Keychain.ItemAttributes.KeySizeInBits.get(from: dict),
               let creationDate = Keychain.ItemAttributes.CreationDate.get(from: dict)
@@ -108,6 +111,7 @@ extension Keychain.Keys {
         }
 
         return Attributes(
+            itemReference: ItemReference(persistentReferenceData: persistentReferenceData),
             keyClass: keyClass,
             algorithm: algorithm,
             keySizeInBits: keySizeInBits,

@@ -1,7 +1,8 @@
 /// Represents the algorithm and class of an asymmetric cryptographic key.
 ///
 /// This enum combines a key algorithm (RSA or Elliptic Curve) with a key class (public or private) to fully specify
-/// the type of an asymmetric key.
+/// the type of an asymmetric key. Use ``scope`` to convert this value into a ``Keychain/AsymmetricKeyTypeScope`` for
+/// query and delete operations.
 ///
 /// - SeeAlso: ``AsymmetricKeyTypeProviding``
 public enum AsymmetricKeyType: Sendable, Equatable {

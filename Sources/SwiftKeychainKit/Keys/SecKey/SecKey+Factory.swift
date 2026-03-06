@@ -7,7 +7,7 @@ extension SecKey {
         keyData: CFData
     ) throws -> SecKey {
         var attributes = [String: Any]()
-        keyType.keychainQueryScope.apply(to: &attributes)
+        keyType.scope.apply(to: &attributes)
 
         var error: Unmanaged<CFError>?
         guard let secKey = SecKeyCreateWithData(keyData, attributes as CFDictionary, &error) else {

@@ -75,9 +75,13 @@ let attributes = try await Keychain.Certificates.queryAttributes(
 )
 
 if let attr = attributes.first {
-    print("Issuer: \(attr.issuer?.base64EncodedString() ?? "N/A")")
-    print("Serial: \(attr.serialNumber?.base64EncodedString() ?? "N/A")")
-    print("Subject: \(attr.subject?.base64EncodedString() ?? "N/A")")
+    print("Issuer: \(attr.issuer.base64EncodedString())")
+    print("Serial: \(attr.serialNumber.base64EncodedString())")
+
+    // Use the item reference for subsequent operations
+    let certificate = try await Keychain.Certificates.get(
+        itemReference: attr.itemReference
+    )
 }
 ```
 

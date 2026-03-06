@@ -62,6 +62,26 @@ try await Keychain.GenericPassword.delete(
 )
 ```
 
+## Querying Attributes
+
+Get metadata about stored passwords and obtain item references for subsequent operations:
+
+```swift
+let attributes = try await Keychain.GenericPassword.queryAttributes(
+    service: .specific("com.example.app"),
+    limit: .unlimited
+)
+
+for attr in attributes {
+    print("Account: \(attr.account)")
+
+    // Use the item reference to retrieve, update, or delete the item
+    let password = try await Keychain.GenericPassword.get(
+        itemReference: attr.itemReference
+    )
+}
+```
+
 ## Primary Key
 
 Generic passwords are uniquely identified by:

@@ -98,7 +98,11 @@ let attributes = try await Keychain.Keys.queryAttributes(
 if let attr = attributes.first {
     print("Key size: \(attr.keySizeInBits) bits")
     print("Algorithm: \(attr.algorithm)")
-    print("Created: \(attr.creationDate ?? Date())")
+
+    // Use the item reference for subsequent operations
+    let key: SecKey? = try await Keychain.Keys.get(
+        itemReference: attr.itemReference
+    )
 }
 ```
 
@@ -140,6 +144,17 @@ For most use cases, you'll identify keys using the `applicationTag` attribute, w
 In most queries, you'll search by `applicationTag` since it's more meaningful to your application logic.
 
 However, when using the default `.publicKeyHash` application label, `applicationTag` alone does not guarantee uniqueness. Each key has a distinct public key hash as its `applicationLabel`, so adding two different keys with the same tag but different key material succeeds without a ``KeychainError/duplicateItem`` error.
+
+Use ``ApplicationLabel/resolve(for:)-52yqf`` to obtain the application label from a key without storing it in the Keychain:
+
+```swift
+import CryptoKit
+
+let privateKey = P256.Signing.PrivateKey()
+
+// Get the public key hash that the Keychain would use as application label
+let label = try Keychain.Keys.ApplicationLabel.resolve(for: privateKey)
+```
 
 ## Topics
 

@@ -5,7 +5,10 @@ public extension Keychain.Certificates {
     /// Attributes of a certificate stored in the Keychain.
     ///
     /// Contains metadata about a certificate entry.
-    struct Attributes: Sendable {
+    struct Attributes: Hashable, Sendable {
+        /// A reference to this item in the Keychain.
+        public let itemReference: ItemReference<Keychain.Certificates>
+
         /// The certificate type.
         ///
         /// Part of the certificate's primary key. The value corresponds to `CSSM_CERT_TYPE` in `cssmtype.h` (macOS only).
@@ -135,7 +138,8 @@ public extension Keychain.Certificates {
 
 extension Keychain.Certificates {
     static func parseAttributes(from dict: [String: Any]) throws(KeychainError) -> Attributes {
-        guard let certificateType = Keychain.ItemAttributes.CertificateType.get(from: dict),
+        guard let persistentReferenceData = Keychain.ItemAttributes.PersistentReference.get(from: dict),
+              let certificateType = Keychain.ItemAttributes.CertificateType.get(from: dict),
               let issuer = Keychain.ItemAttributes.Issuer.get(from: dict),
               let serialNumber = Keychain.ItemAttributes.SerialNumber.get(from: dict),
               let subject = Keychain.ItemAttributes.Subject.get(from: dict),
@@ -149,6 +153,7 @@ extension Keychain.Certificates {
         }
 
         return Attributes(
+            itemReference: ItemReference(persistentReferenceData: persistentReferenceData),
             certificateType: certificateType,
             issuer: issuer,
             serialNumber: serialNumber,

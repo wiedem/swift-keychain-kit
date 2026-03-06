@@ -11,8 +11,10 @@ struct GenericPasswordParseAttributesTests {
     func parseAttributesWithMinimalAttributes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrAccount as String: "test@example.com",
             kSecAttrService as String: "com.example.service",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -23,6 +25,7 @@ struct GenericPasswordParseAttributesTests {
 
         let attributes = try Keychain.GenericPassword.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.account == "test@example.com")
         #expect(attributes.service == "com.example.service")
         #expect(attributes.itemAccessibility == .afterFirstUnlockThisDeviceOnly)
@@ -38,8 +41,10 @@ struct GenericPasswordParseAttributesTests {
     func parseAttributesWithAllAttributes() throws {
         let creationDate = Date(timeIntervalSince1970: 1_000_000_000)
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
+        let persistentRef = Data([0xDE, 0xAD])
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: persistentRef,
             kSecAttrAccount as String: "user@example.com",
             kSecAttrService as String: "com.example.app",
             kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked,
@@ -53,6 +58,7 @@ struct GenericPasswordParseAttributesTests {
 
         let attributes = try Keychain.GenericPassword.parseAttributes(from: dict)
 
+        #expect(attributes.itemReference == ItemReference(persistentReferenceData: persistentRef))
         #expect(attributes.account == "user@example.com")
         #expect(attributes.service == "com.example.app")
         #expect(attributes.itemAccessibility == .whenUnlocked)
@@ -89,6 +95,7 @@ struct GenericPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrService as String: "com.example.service",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -119,6 +126,10 @@ struct GenericPasswordParseAttributesTests {
                 "service missing",
                 key: kSecAttrService
             ),
+            MissingAttributeTestCase(
+                "persistent reference missing",
+                key: kSecValuePersistentRef
+            ),
         ]
     )
     func parseAttributesReturnsNilWhenRequiredAttributeMissing(testCase: MissingAttributeTestCase) {
@@ -126,6 +137,7 @@ struct GenericPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrService as String: "com.example.service",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -163,6 +175,7 @@ struct GenericPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         var dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrService as String: "com.example.service",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,
@@ -184,6 +197,7 @@ struct GenericPasswordParseAttributesTests {
         let modificationDate = Date(timeIntervalSince1970: 1_100_000_000)
 
         let dict: [String: Any] = [
+            kSecValuePersistentRef as String: Data([0xDE, 0xAD]),
             kSecAttrAccount as String: "test@example.com",
             kSecAttrService as String: "com.example.service",
             kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly,

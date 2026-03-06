@@ -130,11 +130,12 @@ let attributes = try await Keychain.Identities.queryAttributes(
 
 if let attr = attributes.first {
     print("Label: \(attr.label ?? "No label")")
-    print("Issuer: \(attr.issuer?.base64EncodedString() ?? "N/A")")
+    print("Issuer: \(attr.issuer.base64EncodedString())")
 
-    if let keyType = attr.keyType {
-        print("Key Type: \(keyType)")
-    }
+    // Use the item reference for subsequent operations
+    let identity = try await Keychain.Identities.get(
+        itemReference: attr.itemReference
+    )
 }
 ```
 

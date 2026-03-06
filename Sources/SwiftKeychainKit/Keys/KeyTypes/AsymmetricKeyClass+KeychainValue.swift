@@ -34,8 +34,11 @@ extension AsymmetricKeyClass {
     }
 }
 
-extension AsymmetricKeyClass {
-    var keychainQueryScope: Keychain.AsymmetricKeyClassScope {
+public extension AsymmetricKeyClass {
+    /// The corresponding scope for query and delete operations.
+    ///
+    /// Converts this key class into a ``Keychain/AsymmetricKeyClassScope`` that matches the same class.
+    var scope: Keychain.AsymmetricKeyClassScope {
         switch self {
         case .publicKey:
             .publicKey

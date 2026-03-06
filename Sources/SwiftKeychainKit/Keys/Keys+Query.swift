@@ -226,7 +226,7 @@ public extension Keychain.Keys {
         limit: Keychain.QueryLimit = .one
     ) async throws -> UniqueArray<Key> {
         try await query(
-            keyType: Key.asymmetricKeyType.keychainQueryScope,
+            keyType: Key.asymmetricKeyType.scope,
             applicationTag: applicationTagScope,
             applicationLabel: applicationLabelScope,
             keySizeInBits: keySizeInBitsScope,
@@ -276,7 +276,7 @@ public extension Keychain.Keys {
         limit: Keychain.QueryLimit = .one
     ) async throws -> [Key] {
         try await query(
-            keyType: Key.asymmetricKeyType.keychainQueryScope,
+            keyType: Key.asymmetricKeyType.scope,
             applicationTag: applicationTagScope,
             applicationLabel: applicationLabelScope,
             keySizeInBits: keySizeInBitsScope,

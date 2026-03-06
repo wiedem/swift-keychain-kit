@@ -1,6 +1,6 @@
 # SwiftKeychainKit
 
-A modern Swift package for type-safe Keychain operations on iOS and macOS.
+A modern Swift package for convenient, type-safe Keychain operations on iOS and macOS.
 
 [![Swift 6.2](https://img.shields.io/badge/Swift-6.2-orange.svg)](https://swift.org)
 [![Platforms](https://img.shields.io/badge/Platforms-iOS%2015+%20|%20macOS%2012+-blue.svg)](https://swift.org)
@@ -21,7 +21,7 @@ The APIs are designed to guide you towards correct usage. Invalid attribute comb
 - ✅ **Access Control** - Restrict access with biometry, device passcode, or application passwords
 - ✅ **Secure Enclave** - Generate and use keys backed by dedicated security hardware
 - ✅ **iCloud Sync** - Share Keychain items across devices via iCloud
-- ✅ **CryptoKit Integration** - Work with CryptoKit keys without manual conversion
+- ✅ **[Apple CryptoKit](https://developer.apple.com/documentation/cryptokit) Integration** - Work with CryptoKit keys without manual conversion
 - ✅ **Swift 6** - Async/await and strict concurrency throughout
 - ✅ **Complete Documentation** - DocC documentation with guides and code examples
 
@@ -53,7 +53,7 @@ try await Keychain.GenericPassword.delete(itemReference: itemReference)
 
 You can also retrieve and manage items by their attributes (e.g. account and service). See the [documentation](https://wiedem.github.io/swift-keychain-kit/documentation/swiftkeychainkit/) for details.
 
-### CryptoKit Keys
+### Apple CryptoKit Keys
 
 NIST curve keys (P-256, P-384, P-521) can be stored directly via `Keychain.Keys`:
 
@@ -106,7 +106,7 @@ Add the dependency to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/wiedem/swift-keychain-kit.git", from: "1.0.0")
+    .package(url: "https://github.com/wiedem/swift-keychain-kit.git", from: "1.3.0")
 ]
 ```
 

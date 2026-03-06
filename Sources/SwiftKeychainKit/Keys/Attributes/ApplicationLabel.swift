@@ -9,6 +9,9 @@ public extension Keychain.Keys {
     /// - SeeAlso: [kSecAttrApplicationLabel](https://developer.apple.com/documentation/security/ksecattrapplicationlabel)
     enum ApplicationLabel: Sendable {
         /// Let the Keychain derive the label from the public key hash.
+        ///
+        /// Use ``resolve(for:)-52yqf`` to obtain this value from a key without storing it in the
+        /// Keychain.
         case publicKeyHash
 
         /// Provide a custom application label value.

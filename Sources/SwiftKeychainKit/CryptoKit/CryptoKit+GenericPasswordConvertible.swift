@@ -1,6 +1,6 @@
 public import CryptoKit
-public import LocalAuthentication
 private import Foundation
+public import LocalAuthentication
 
 extension Curve25519.KeyAgreement.PrivateKey: Keychain.GenericPasswordConvertible {
     public func genericPasswordRepresentation() throws -> any (SecretDataProtocol & ~Copyable) {

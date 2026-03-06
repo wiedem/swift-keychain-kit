@@ -13,3 +13,6 @@
 --disable conditionalAssignment
 --disable docComments
 --disable simplifyGenericConstraints
+--suite-name-format preserve
+--disable redundantSendable
+--disable redundantSwiftTestingSuite

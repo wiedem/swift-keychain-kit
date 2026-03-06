@@ -85,6 +85,27 @@ struct AsymmetricKeyClassTests {
         let keyClass = AsymmetricKeyClass.make(for: testCase.keychainValue)
         #expect(keyClass == testCase.expected)
     }
+
+    // MARK: - scope Tests
+
+    @Test(
+        "scope returns expected scope",
+        arguments: [
+            ScopeTestCase(
+                "public key",
+                input: .publicKey,
+                expected: .publicKey
+            ),
+            ScopeTestCase(
+                "private key",
+                input: .privateKey,
+                expected: .privateKey
+            ),
+        ]
+    )
+    func scopeReturnsExpectedScope(testCase: ScopeTestCase) {
+        #expect(testCase.input.scope == testCase.expected)
+    }
 }
 
 extension AsymmetricKeyClassTests {
@@ -136,6 +157,22 @@ extension AsymmetricKeyClassTests {
         ) {
             self.name = name
             self.keychainValue = keychainValue
+            self.expected = expected
+        }
+    }
+
+    struct ScopeTestCase: Sendable {
+        let name: String
+        let input: AsymmetricKeyClass
+        let expected: Keychain.AsymmetricKeyClassScope
+
+        init(
+            _ name: String,
+            input: AsymmetricKeyClass,
+            expected: Keychain.AsymmetricKeyClassScope
+        ) {
+            self.name = name
+            self.input = input
             self.expected = expected
         }
     }

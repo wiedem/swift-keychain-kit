@@ -88,6 +88,23 @@ try await Keychain.GenericPassword.delete(
 )
 ```
 
+## Reading the Application Label
+
+When storing a private key, the Keychain automatically sets its application label to the hash of the
+public key. You can obtain this value from a key without storing it in the Keychain:
+
+```swift
+import CryptoKit
+
+let privateKey = P256.Signing.PrivateKey()
+
+// Get the public key hash computed by the Security framework
+let applicationLabel = try Keychain.Keys.ApplicationLabel.resolve(for: privateKey)
+```
+
+This is useful for querying keys by their application label or for matching a private key to its
+corresponding certificate.
+
 ## Access Control
 
 Both storage paths support access control. Use

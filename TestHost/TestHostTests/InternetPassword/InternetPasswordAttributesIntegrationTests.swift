@@ -18,7 +18,7 @@ final class InternetPasswordAttributesIntegrationTests {
         let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
         let label = "Test Internet Attributes Label"
 
-        try await Keychain.InternetPassword.add(
+        let itemReference = try await Keychain.InternetPassword.add(
             password,
             account: keychainAccountName,
             server: keychainServer,
@@ -38,6 +38,7 @@ final class InternetPasswordAttributesIntegrationTests {
 
         #expect(attributes.count == 1)
         let first = try requireUnwrapped(attributes.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.account == keychainAccountName)
         #expect(first.server == keychainServer)
         #expect(first.networkProtocol == .http)
@@ -53,7 +54,7 @@ final class InternetPasswordAttributesIntegrationTests {
     func attributesReturnsMinimalMetadata() async throws {
         let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
 
-        try await Keychain.InternetPassword.add(
+        let itemReference = try await Keychain.InternetPassword.add(
             password,
             account: keychainAccountName,
             server: keychainServer
@@ -66,6 +67,7 @@ final class InternetPasswordAttributesIntegrationTests {
 
         #expect(attributes.count == 1)
         let first = try requireUnwrapped(attributes.first)
+        #expect(first.itemReference == itemReference)
         #expect(first.account == keychainAccountName)
         #expect(first.server == keychainServer)
     }

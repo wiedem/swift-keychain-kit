@@ -17,4 +17,12 @@ public extension Keychain.ItemAttributes {
             kSecAttrModificationDate
         }
     }
+
+    enum PersistentReference: Attribute, Sendable {
+        typealias ValueType = Data
+
+        static var keychainAttributeKey: CFString {
+            kSecValuePersistentRef
+        }
+    }
 }

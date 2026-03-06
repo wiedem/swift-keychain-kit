@@ -6,7 +6,10 @@ public extension Keychain.Identities {
     ///
     /// Contains metadata about an identity entry. Since an identity is the combination of a private key and a certificate, this
     /// struct includes attributes from both the private key and the certificate.
-    struct Attributes: Sendable {
+    struct Attributes: Hashable, Sendable {
+        /// A reference to this item in the Keychain.
+        public let itemReference: ItemReference<Keychain.Identities>
+
         // MARK: - Certificate Attributes
 
         /// The certificate type.
@@ -160,6 +163,10 @@ public extension Keychain.Identities {
 
 extension Keychain.Identities {
     static func parseAttributes(from dict: [String: Any]) throws(KeychainError) -> Attributes {
+        guard let persistentReferenceData = Keychain.ItemAttributes.PersistentReference.get(from: dict) else {
+            throw .attributeParsingFailed
+        }
+
         // Certificate Attributes
         guard let certificateType = Keychain.ItemAttributes.CertificateType.get(from: dict),
               let issuer = Keychain.ItemAttributes.Issuer.get(from: dict),
@@ -188,6 +195,7 @@ extension Keychain.Identities {
         }
 
         return Attributes(
+            itemReference: ItemReference(persistentReferenceData: persistentReferenceData),
             certificateType: certificateType,
             issuer: issuer,
             serialNumber: serialNumber,

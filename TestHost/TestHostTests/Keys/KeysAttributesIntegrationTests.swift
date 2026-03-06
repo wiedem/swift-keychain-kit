@@ -18,7 +18,7 @@ final class KeysAttributesIntegrationTests {
         let label = "keys-attributes-label-\(UUID().uuidString)"
         let applicationLabel = "keys-attributes-application-label-\(UUID().uuidString)".data(using: .utf8)!
 
-        try await Keychain.Keys.addPrivateKey(
+        let itemReference = try await Keychain.Keys.addPrivateKey(
             privateKey,
             applicationTag: keychainApplicationTag,
             applicationLabel: .data(applicationLabel),
@@ -34,6 +34,7 @@ final class KeysAttributesIntegrationTests {
         #expect(attrs.count == 1)
         let first = try requireUnwrapped(attrs.first)
 
+        #expect(first.itemReference == itemReference)
         #expect(first.keyClass == .privateKey)
         #expect(first.algorithm == .rsa)
         #expect(first.applicationLabel == applicationLabel)
@@ -47,7 +48,7 @@ final class KeysAttributesIntegrationTests {
     func attributesReturnsMinimalMetadata() async throws {
         let (_, privateKey) = try Self.makeECCKeyPair()
 
-        try await Keychain.Keys.addPrivateKey(
+        let itemReference = try await Keychain.Keys.addPrivateKey(
             privateKey,
             applicationTag: keychainApplicationTag
         )
@@ -59,6 +60,7 @@ final class KeysAttributesIntegrationTests {
         #expect(attrs.count == 1)
         let first = try requireUnwrapped(attrs.first)
 
+        #expect(first.itemReference == itemReference)
         #expect(first.keyClass == .privateKey)
         #expect(first.algorithm == .ellipticCurve)
         #expect(first.applicationTag == keychainApplicationTag)

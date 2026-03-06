@@ -4,7 +4,7 @@ Store a reference to a Keychain item for later retrieval without repeating the o
 
 ## Overview
 
-Every `add()` method returns an ``ItemReference``, an opaque handle that uniquely identifies the stored item for as long as it exists in the Keychain. Instead of keeping track of the primary key attributes, you can use the reference to retrieve, update, or delete the item directly.
+An ``ItemReference`` is an opaque handle that uniquely identifies a Keychain item for as long as it exists. You obtain a reference either by storing an item with one of the `add()` methods or by querying the item's attributes. Once you have a reference, you can retrieve, update, or delete the item directly without reproducing the original query parameters.
 
 Item references are especially useful for:
 - **Token storage**: Store an access token at login, retrieve it on next launch.
@@ -37,6 +37,34 @@ try await Keychain.GenericPassword.update(itemReference: itemReference, to: newP
 
 let deleted = try await Keychain.GenericPassword.delete(itemReference: itemReference)
 ```
+
+## Obtaining a Reference for an Existing Item
+
+If you didn't keep the reference from `add()`, you can obtain one for any existing
+item through `queryAttributes`. Every ``Keychain/GenericPassword/Attributes``,
+``Keychain/InternetPassword/Attributes``, ``Keychain/Keys/Attributes``,
+``Keychain/Certificates/Attributes``, and ``Keychain/Identities/Attributes``
+instance includes an ``ItemReference`` via its `itemReference` property.
+
+This is especially useful when multiple items match a query and you need to pick
+the right one based on its metadata:
+
+```swift
+let allPasswords = try await Keychain.GenericPassword.queryAttributes(
+    service: .specific("com.example.app"),
+    limit: .unlimited
+)
+
+// Pick the one you need based on attributes
+if let match = allPasswords.first(where: { $0.account == "user@example.com" }) {
+    // Use the reference for subsequent operations
+    let password = try await Keychain.GenericPassword.get(
+        itemReference: match.itemReference
+    )
+}
+```
+
+## Reference Lifecycle
 
 The reference remains valid after an update but becomes invalid after deletion.
 `get(itemReference:)` returns `nil` for deleted items. Adding a new item with

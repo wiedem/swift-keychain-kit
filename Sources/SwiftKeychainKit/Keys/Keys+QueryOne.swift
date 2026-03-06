@@ -44,7 +44,7 @@ public extension Keychain.Keys {
         authenticationContext: LAContext? = nil
     ) async throws -> SecKey? {
         let results = try await query(
-            keyType: keyType.keychainQueryScope,
+            keyType: keyType.scope,
             applicationTag: .specific(applicationTag),
             applicationLabel: applicationLabelScope,
             keySizeInBits: keySizeInBitsScope,
