@@ -89,7 +89,9 @@ extension Keychain {
         return try queryItems(query: query) { result throws -> UniqueArray<SecretData> in
             // Check if the query only returns one matching item.
             if limit.isSingle {
-                let data = (result as! CFData)
+                guard let data: CFData = cast(result) else {
+                    throw KeychainError.dataConversionFailed
+                }
 
                 return try UniqueArray<SecretData>(capacity: 1) {
                     let secretData = try SecretData.makeByCopying(fromUnsafeData: data)

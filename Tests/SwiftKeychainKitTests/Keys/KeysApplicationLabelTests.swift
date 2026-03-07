@@ -10,7 +10,8 @@ struct KeysApplicationLabelTests {
     func p256SigningKey() throws {
         let key = P256.Signing.PrivateKey()
 
-        let label = try #require(Keychain.Keys.ApplicationLabel.resolve(for: key))
+        let result = try Keychain.Keys.ApplicationLabel.resolve(for: key)
+        let label = try #require(result)
 
         #expect(label.isEmpty == false)
     }
@@ -19,7 +20,8 @@ struct KeysApplicationLabelTests {
     func p256KeyAgreementKey() throws {
         let key = P256.KeyAgreement.PrivateKey()
 
-        let label = try #require(Keychain.Keys.ApplicationLabel.resolve(for: key))
+        let result = try Keychain.Keys.ApplicationLabel.resolve(for: key)
+        let label = try #require(result)
 
         #expect(label.isEmpty == false)
     }
@@ -28,7 +30,8 @@ struct KeysApplicationLabelTests {
     func p384SigningKey() throws {
         let key = P384.Signing.PrivateKey()
 
-        let label = try #require(Keychain.Keys.ApplicationLabel.resolve(for: key))
+        let result = try Keychain.Keys.ApplicationLabel.resolve(for: key)
+        let label = try #require(result)
 
         #expect(label.isEmpty == false)
     }
@@ -37,7 +40,8 @@ struct KeysApplicationLabelTests {
     func p521SigningKey() throws {
         let key = P521.Signing.PrivateKey()
 
-        let label = try #require(Keychain.Keys.ApplicationLabel.resolve(for: key))
+        let result = try Keychain.Keys.ApplicationLabel.resolve(for: key)
+        let label = try #require(result)
 
         #expect(label.isEmpty == false)
     }

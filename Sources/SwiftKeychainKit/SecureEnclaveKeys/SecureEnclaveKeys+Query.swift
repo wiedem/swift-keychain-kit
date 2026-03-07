@@ -13,10 +13,7 @@ public extension Keychain.SecureEnclaveKeys {
     ///
     /// - Returns: An array of matching private keys. May be empty if no matches found.
     ///
-    /// - Throws: A ``KeychainError`` if the query fails.
-    ///   - `.itemNotFound` if no matching keys are found.
-    ///
-    /// - SeeAlso: [Storing Keys in the Secure Enclave](https://developer.apple.com/documentation/security/certificate_key_and_trust_services/keys/storing_keys_in_the_secure_enclave)
+    /// - Throws: ``KeychainError`` if the Keychain operation fails.
     static func query(
         applicationTag applicationTagScope: Keychain.ApplicationTagScope = .any,
         applicationLabel applicationLabelScope: Keychain.ApplicationLabelScope = .any,

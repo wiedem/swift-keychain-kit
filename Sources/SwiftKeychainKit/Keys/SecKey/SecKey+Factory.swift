@@ -11,7 +11,10 @@ extension SecKey {
 
         var error: Unmanaged<CFError>?
         guard let secKey = SecKeyCreateWithData(keyData, attributes as CFDictionary, &error) else {
-            throw error!.takeRetainedValue() as any Error
+            guard let error else {
+                preconditionFailure("SecKeyCreateWithData returned nil without providing an error")
+            }
+            throw error.takeRetainedValue() as any Error
         }
         return secKey
     }
@@ -19,7 +22,10 @@ extension SecKey {
     func externalRepresentation() throws -> SecretData {
         var error: Unmanaged<CFError>?
         guard let data = SecKeyCopyExternalRepresentation(self, &error) else {
-            throw error!.takeRetainedValue() as any Error
+            guard let error else {
+                preconditionFailure("SecKeyCopyExternalRepresentation returned nil without providing an error")
+            }
+            throw error.takeRetainedValue() as any Error
         }
         return try SecretData.makeByCopying(fromUnsafeData: data)
     }
