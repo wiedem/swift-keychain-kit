@@ -190,6 +190,42 @@ struct AccessConstraintTests {
     func fourWayAndCombinationFlags(testCase: ConstraintsTestCase) {
         #expect(testCase.createFlags() == testCase.expected)
     }
+
+    // MARK: - AnyAccessConstraint
+
+    @Test(
+        "AnyAccessConstraint preserves flags",
+        arguments: [
+            ConstraintsTestCase(
+                "erased devicePasscode",
+                Keychain.AccessConstraint.devicePasscode.eraseToAny(),
+                expectedFlags: [.devicePasscode]
+            ),
+            ConstraintsTestCase(
+                "erased biometryAny",
+                Keychain.AccessConstraint.biometryAny.eraseToAny(),
+                expectedFlags: [.biometryAny]
+            ),
+            ConstraintsTestCase(
+                "erased devicePasscode | biometryAny",
+                (Keychain.AccessConstraint.devicePasscode | .biometryAny).eraseToAny(),
+                expectedFlags: [.devicePasscode, .biometryAny, .or]
+            ),
+            ConstraintsTestCase(
+                "erased devicePasscode & applicationPassword",
+                (Keychain.AccessConstraint.devicePasscode & .applicationPassword).eraseToAny(),
+                expectedFlags: [.devicePasscode, .applicationPassword, .and]
+            ),
+            ConstraintsTestCase(
+                "erased via init",
+                Keychain.AnyAccessConstraint(Keychain.AccessConstraint.devicePasscode & .biometryCurrentSet),
+                expectedFlags: [.devicePasscode, .biometryCurrentSet, .and]
+            ),
+        ]
+    )
+    func anyAccessConstraintFlags(testCase: ConstraintsTestCase) {
+        #expect(testCase.createFlags() == testCase.expected)
+    }
 }
 
 extension AccessConstraintTests {

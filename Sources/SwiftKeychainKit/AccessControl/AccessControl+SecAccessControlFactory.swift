@@ -12,18 +12,14 @@ extension Keychain.AccessControl {
             return flags
         }
 
-        // Remove the constraint components, keep .or for now
-        var optimized = flags.subtracting([.devicePasscode, .biometryAny])
-
-        // Remove .or only if it is the sole remaining flag
-        if optimized == [.or] {
-            optimized = []
+        // Only optimize if the pattern is exactly [.or, .devicePasscode, .biometryAny] with no other flags.
+        // userPresence can only be combined with .applicationPassword and .privateKeyUsage.
+        // The expanded form remains combinable with additional flags, .userPresence does not.
+        guard flags == userPresencePattern else {
+            return flags
         }
 
-        // Insert the optimized .userPresence flag
-        optimized.insert(.userPresence)
-
-        return optimized
+        return [.userPresence]
     }
 }
 

@@ -15,11 +15,6 @@ struct AccessControlTests {
                 input: [.or, .devicePasscode, .biometryAny],
                 expected: [.userPresence]
             ),
-OptimizeFlagsTestCase(
-                "userPresence pattern with companion preserves or flag",
-                input: Self.companionFlag.union([.or, .devicePasscode, .biometryAny]),
-                expected: Self.companionFlag.union([.userPresence, .or])
-            ),
         ]
     )
     func optimizeFlagsOptimizesUserPresencePattern(testCase: OptimizeFlagsTestCase) {
@@ -65,6 +60,11 @@ OptimizeFlagsTestCase(
                 input: [],
                 expected: []
             ),
+            OptimizeFlagsTestCase(
+                "userPresence pattern with companion is not optimized",
+                input: Self.companionFlag.union([.or, .devicePasscode, .biometryAny]),
+                expected: Self.companionFlag.union([.or, .devicePasscode, .biometryAny])
+            ),
         ]
     )
     func optimizeFlagsDoesNotModifyNonUserPresencePatterns(testCase: OptimizeFlagsTestCase) {
@@ -85,18 +85,15 @@ OptimizeFlagsTestCase(
         #expect(result == expected)
     }
 
-    @Test("makeSecAccessControl with constraint")
-    func makeSecAccessControlWithConstraint() throws {
-        let accessControl = Keychain.AccessControl.make(
-            accessibility: .whenUnlockedThisDeviceOnly,
-            constraint: Keychain.AccessConstraint.devicePasscode
+    @Test(
+        "makeSecAccessControl succeeds for all valid constraint combinations",
+        arguments: validConstraintCombinations
+    )
+    func makeSecAccessControlForAllValidConstraints(constraint: Keychain.AnyAccessConstraint) throws {
+        _ = try Keychain.AccessControl.makeSecAccessControl(
+            protection: kSecAttrAccessibleWhenUnlocked,
+            secAccessControlCreateFlags: constraint.secAccessControlCreateFlags
         )
-        let result = try accessControl.makeSecAccessControl()
-
-        let expected = try #require(SecAccessControlCreateWithFlags(
-            nil, kSecAttrAccessibleWhenUnlockedThisDeviceOnly, .devicePasscode, nil
-        ))
-        #expect(result == expected)
     }
 
     @Test(
@@ -132,15 +129,68 @@ extension AccessControlTests {
         }
         return SecAccessControlCreateFlags(rawValue: 1 << 5)
     }
+
+    // swiftlint:disable:next identifier_name
+    private static let AC = (
+        devicePasscode: Keychain.AccessConstraint.devicePasscode,
+        biometryAny: Keychain.AccessConstraint.biometryAny,
+        biometryCurrentSet: Keychain.AccessConstraint.biometryCurrentSet,
+        applicationPassword: Keychain.AccessConstraint.applicationPassword,
+        companion: Keychain.AccessConstraint.companion
+    )
+
+    static let validConstraintCombinations: [Keychain.AnyAccessConstraint] = [
+        // Single constraints
+        AC.devicePasscode.eraseToAny(),
+        AC.biometryAny.eraseToAny(),
+        AC.biometryCurrentSet.eraseToAny(),
+        AC.applicationPassword.eraseToAny(),
+        AC.companion.eraseToAny(),
+        Keychain.AccessConstraint.userPresence.eraseToAny(),
+
+        // OR combinations
+        (AC.devicePasscode | AC.biometryAny).eraseToAny(),
+        (AC.devicePasscode | AC.biometryCurrentSet).eraseToAny(),
+        (AC.devicePasscode | AC.companion).eraseToAny(),
+        (AC.biometryAny | AC.companion).eraseToAny(),
+        (AC.biometryCurrentSet | AC.companion).eraseToAny(),
+        ((AC.devicePasscode | AC.biometryAny) | AC.companion).eraseToAny(),
+        ((AC.devicePasscode | AC.biometryCurrentSet) | AC.companion).eraseToAny(),
+
+        // AND combinations
+        (AC.devicePasscode & AC.biometryAny).eraseToAny(),
+        (AC.devicePasscode & AC.biometryCurrentSet).eraseToAny(),
+        (AC.devicePasscode & AC.applicationPassword).eraseToAny(),
+        (AC.devicePasscode & AC.companion).eraseToAny(),
+        (AC.applicationPassword & AC.biometryAny).eraseToAny(),
+        (AC.applicationPassword & AC.biometryCurrentSet).eraseToAny(),
+        (AC.applicationPassword & AC.companion).eraseToAny(),
+        (AC.biometryAny & AC.companion).eraseToAny(),
+        (AC.biometryCurrentSet & AC.companion).eraseToAny(),
+
+        // Three-way AND combinations
+        ((AC.devicePasscode & AC.applicationPassword) & AC.biometryAny).eraseToAny(),
+        ((AC.devicePasscode & AC.applicationPassword) & AC.biometryCurrentSet).eraseToAny(),
+        ((AC.devicePasscode & AC.biometryAny) & AC.companion).eraseToAny(),
+        ((AC.devicePasscode & AC.biometryCurrentSet) & AC.companion).eraseToAny(),
+        ((AC.devicePasscode & AC.applicationPassword) & AC.companion).eraseToAny(),
+        ((AC.applicationPassword & AC.biometryAny) & AC.companion).eraseToAny(),
+        ((AC.applicationPassword & AC.biometryCurrentSet) & AC.companion).eraseToAny(),
+
+        // Four-way AND combinations
+        (((AC.devicePasscode & AC.applicationPassword) & AC.biometryAny) & AC.companion).eraseToAny(),
+        (((AC.devicePasscode & AC.applicationPassword) & AC.biometryCurrentSet) & AC.companion).eraseToAny(),
+    ]
 }
 
 // MARK: - Test Cases
 
 extension AccessControlTests {
-    struct OptimizeFlagsTestCase: Sendable {
+    struct OptimizeFlagsTestCase: Sendable, CustomTestStringConvertible {
         let name: String
         let input: @Sendable () -> SecAccessControlCreateFlags
         let expected: SecAccessControlCreateFlags
+        var testDescription: String { name }
 
         init(
             _ name: String,
