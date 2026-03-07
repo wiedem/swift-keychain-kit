@@ -15,15 +15,10 @@ struct AccessControlTests {
                 input: [.or, .devicePasscode, .biometryAny],
                 expected: [.userPresence]
             ),
-            OptimizeFlagsTestCase(
-                "userPresence pattern with and flag",
-                input: [.or, .devicePasscode, .biometryAny, .and],
-                expected: [.userPresence, .and]
-            ),
-            OptimizeFlagsTestCase(
-                "userPresence pattern with applicationPassword and and flag",
-                input: [.or, .devicePasscode, .biometryAny, .and, .applicationPassword],
-                expected: [.userPresence, .and, .applicationPassword]
+OptimizeFlagsTestCase(
+                "userPresence pattern with companion preserves or flag",
+                input: Self.companionFlag.union([.or, .devicePasscode, .biometryAny]),
+                expected: Self.companionFlag.union([.userPresence, .or])
             ),
         ]
     )
@@ -125,6 +120,17 @@ struct AccessControlTests {
             nil, protection as CFString, [], nil
         )!
         #expect(result == expected)
+    }
+}
+
+// MARK: - Test Data
+
+extension AccessControlTests {
+    static var companionFlag: SecAccessControlCreateFlags {
+        if #available(iOS 18.0, macOS 15.0, *) {
+            return [.companion]
+        }
+        return SecAccessControlCreateFlags(rawValue: 1 << 5)
     }
 }
 

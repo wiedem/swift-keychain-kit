@@ -3,6 +3,8 @@ internal import Security
 
 extension Keychain.AccessControl {
     static func optimizeFlags(_ flags: SecAccessControlCreateFlags) -> SecAccessControlCreateFlags {
+        assert(!flags.contains([.or, .and]), "Flags must not contain both .or and .and")
+
         let userPresencePattern: SecAccessControlCreateFlags = [.or, .devicePasscode, .biometryAny]
 
         // Check if flags contain the userPresence pattern
@@ -10,8 +12,13 @@ extension Keychain.AccessControl {
             return flags
         }
 
-        // Remove the pattern components
-        var optimized = flags.subtracting(userPresencePattern)
+        // Remove the constraint components, keep .or for now
+        var optimized = flags.subtracting([.devicePasscode, .biometryAny])
+
+        // Remove .or only if it is the sole remaining flag
+        if optimized == [.or] {
+            optimized = []
+        }
 
         // Insert the optimized .userPresence flag
         optimized.insert(.userPresence)
