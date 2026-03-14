@@ -111,8 +111,8 @@ final class GenericPasswordQuerySkipUITests {
         let appPassword = "1" // User must enter this password at the UI prompt during query
 
         let addContext = LAContext()
-        addContext.setCredential(
-            appPassword.data(using: .utf8)!,
+        try addContext.setCredential(
+            #require(appPassword.data(using: .utf8)),
             type: .applicationPassword
         )
 

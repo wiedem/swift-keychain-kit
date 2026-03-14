@@ -190,7 +190,9 @@ extension AccessControlTests {
         let name: String
         let input: @Sendable () -> SecAccessControlCreateFlags
         let expected: SecAccessControlCreateFlags
-        var testDescription: String { name }
+        var testDescription: String {
+            name
+        }
 
         init(
             _ name: String,

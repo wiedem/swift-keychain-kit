@@ -1,6 +1,6 @@
 @testable public import SwiftKeychainKit
-public import Testing
 private import Security
+public import Testing
 
 extension Keychain.AnyAccessConstraint: CustomTestStringConvertible {
     private static let flagNames: KeyValuePairs<SecAccessControlCreateFlags, String> = [

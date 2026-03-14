@@ -123,8 +123,8 @@ final class GenericPasswordGetSkipUITests {
         let appPassword = "1" // User must enter this password at the UI prompt during get
 
         let addContext = LAContext()
-        addContext.setCredential(
-            appPassword.data(using: .utf8)!,
+        try addContext.setCredential(
+            #require(appPassword.data(using: .utf8)),
             type: .applicationPassword
         )
 
