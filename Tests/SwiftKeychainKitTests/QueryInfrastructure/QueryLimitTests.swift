@@ -28,4 +28,22 @@ struct QueryLimitTests {
         let limit = Keychain.QueryLimit.count(3).keychainValue as? Int
         #expect(limit == 3)
     }
+
+    // MARK: - ExpressibleByIntegerLiteral
+
+    @Test("Integer literal creates count-based limit")
+    func integerLiteralCreatesCountLimit() {
+        let limit: Keychain.QueryLimit = 5
+        guard case .count(5) = limit else {
+            Issue.record("Expected .count(5)")
+            return
+        }
+    }
+
+    @Test("Integer literal 1 maps to kSecMatchLimitOne")
+    func integerLiteralOneMapsToMatchLimitOne() {
+        let limit: Keychain.QueryLimit = 1
+        let value = limit.keychainValue as? String
+        #expect(value == kSecMatchLimitOne as String)
+    }
 }

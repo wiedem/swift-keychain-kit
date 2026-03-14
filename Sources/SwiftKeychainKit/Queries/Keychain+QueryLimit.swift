@@ -32,6 +32,13 @@ public extension Keychain.QueryLimit {
     }
 }
 
+extension Keychain.QueryLimit: ExpressibleByIntegerLiteral {
+    /// Creates a count-based limit from an integer literal.
+    public init(integerLiteral value: Int) {
+        self = .count(value)
+    }
+}
+
 extension Keychain.QueryLimit: Keychain.KeychainValueProviding {
     var keychainValue: Any {
         switch self {

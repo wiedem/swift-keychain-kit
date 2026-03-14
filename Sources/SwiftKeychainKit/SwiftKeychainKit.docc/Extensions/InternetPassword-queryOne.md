@@ -42,7 +42,7 @@ let password = try await Keychain.InternetPassword.queryOne(
     account: "user@example.com",
     server: "api.example.com",
     protocol: .specific(.https),  // Specify the protocol
-    port: .specific(443)            // Specify the port
+    port: 443                       // Specify the port
 )
 ```
 
@@ -51,16 +51,16 @@ let password = try await Keychain.InternetPassword.queryOne(
 ```swift
 // Use query() to get all matches and handle them yourself
 let passwords = try await Keychain.InternetPassword.query(
-    account: .specific("user@example.com"),
-    server: .specific("api.example.com"),
+    account: "user@example.com",
+    server: "api.example.com",
     limit: .unlimited
 )
 
 // Choose the appropriate password based on your logic
 for password in passwords {
     let attrs = try await Keychain.InternetPassword.queryAttributes(
-        account: .specific("user@example.com"),
-        server: .specific("api.example.com")
+        account: "user@example.com",
+        server: "api.example.com"
     )
     // Inspect attributes to find the right one
 }
@@ -93,7 +93,7 @@ try await Keychain.InternetPassword.add(
 let password = try await Keychain.InternetPassword.queryOne(
     account: "api-key",
     server: "api.example.com",
-    port: .specific(443)
+    port: 443
 )
 ```
 

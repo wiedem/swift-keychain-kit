@@ -42,6 +42,14 @@ struct ProviderAccessGroupTests {
             try accessGroup.valueForGet
         }
     }
+
+    // MARK: - ExpressibleByStringLiteral
+
+    @Test("String literal creates identifier access group")
+    func stringLiteralCreatesIdentifierAccessGroup() {
+        let accessGroup: Keychain.ProviderAccessGroup<TestProvider> = "ABCDE12345.com.example.myapp"
+        #expect(accessGroup == .identifier("ABCDE12345.com.example.myapp"))
+    }
 }
 
 // MARK: - Test Providers

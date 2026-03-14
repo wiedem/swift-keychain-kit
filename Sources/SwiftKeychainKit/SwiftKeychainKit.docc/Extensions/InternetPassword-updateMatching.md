@@ -11,8 +11,8 @@ Update all passwords for an account and server, regardless of port or protocol:
 let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "updated-password")
 
 try await Keychain.InternetPassword.updateMatching(
-    account: .specific("user@example.com"),
-    server: .specific("api.example.com"),
+    account: "user@example.com",
+    server: "api.example.com",
     to: newPassword
 )
 ```
@@ -25,10 +25,10 @@ Update only passwords matching specific criteria (e.g., HTTPS on port 443):
 let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "updated-password")
 
 try await Keychain.InternetPassword.updateMatching(
-    account: .specific("user@example.com"),
-    server: .specific("api.example.com"),
+    account: "user@example.com",
+    server: "api.example.com",
     protocol: .specific(.https),
-    port: .specific(443),
+    port: 443,
     to: newPassword
 )
 ```
@@ -41,8 +41,8 @@ Update all HTTPS passwords, regardless of port:
 let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "updated-password")
 
 try await Keychain.InternetPassword.updateMatching(
-    account: .specific("user@example.com"),
-    server: .specific("api.example.com"),
+    account: "user@example.com",
+    server: "api.example.com",
     protocol: .specific(.https),
     to: newPassword
 )

@@ -15,7 +15,7 @@ By default, queries search all of the app's access groups:
 // Search across all access groups
 let passwords = try await Keychain.GenericPassword.query(
     account: .any,
-    service: .specific("com.example.app"),
+    service: "com.example.app",
     accessGroup: .any,
     limit: .unlimited
 )
@@ -30,7 +30,7 @@ Limit your search to a particular access group for shared items:
 let password = try await Keychain.GenericPassword.get(
     account: "user@example.com",
     service: "com.example.app",
-    accessGroup: .specific("ABCDE12345.com.example.shared"),
+    accessGroup: "ABCDE12345.com.example.shared",
     synchronizable: false
 )
 ```
@@ -44,8 +44,8 @@ Limit your search to the app's default access group:
 ```swift
 // Delete from default access group only
 try await Keychain.GenericPassword.delete(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.app"),
+    account: "user@example.com",
+    service: "com.example.app",
     accessGroup: .default
 )
 ```

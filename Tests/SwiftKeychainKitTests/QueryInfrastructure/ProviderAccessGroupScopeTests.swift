@@ -92,6 +92,14 @@ struct ProviderAccessGroupScopeTests {
             try scope.apply(to: &query)
         }
     }
+
+    // MARK: - ExpressibleByStringLiteral
+
+    @Test("String literal creates specific scope")
+    func stringLiteralCreatesSpecificScope() {
+        let scope: Keychain.ProviderAccessGroupScope<TestProvider> = "ABCDE12345.com.example.myapp"
+        #expect(scope == .specific("ABCDE12345.com.example.myapp"))
+    }
 }
 
 // MARK: - Test Providers

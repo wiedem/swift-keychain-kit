@@ -51,3 +51,22 @@ public extension Keychain {
         case `default`
     }
 }
+
+extension Keychain.ProviderAccessGroupScope: ExpressibleByUnicodeScalarLiteral {
+    public init(unicodeScalarLiteral value: String) {
+        self = .specific(value)
+    }
+}
+
+extension Keychain.ProviderAccessGroupScope: ExpressibleByExtendedGraphemeClusterLiteral {
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self = .specific(value)
+    }
+}
+
+extension Keychain.ProviderAccessGroupScope: ExpressibleByStringLiteral {
+    /// Creates a scope targeting a specific access group from a string literal.
+    public init(stringLiteral value: String) {
+        self = .specific(value)
+    }
+}

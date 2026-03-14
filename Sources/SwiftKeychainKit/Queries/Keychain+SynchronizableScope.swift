@@ -14,3 +14,12 @@ public extension Keychain {
         case any
     }
 }
+
+extension Keychain.SynchronizableScope: ExpressibleByBooleanLiteral {
+    /// Creates a synchronization scope from a Boolean literal.
+    ///
+    /// `true` maps to ``synchronized``, `false` maps to ``notSynchronized``.
+    public init(booleanLiteral value: Bool) {
+        self = value ? .synchronized : .notSynchronized
+    }
+}

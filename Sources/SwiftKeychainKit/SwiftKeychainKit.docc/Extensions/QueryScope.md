@@ -26,20 +26,20 @@ try await Keychain.GenericPassword.add(
     password,
     account: "user@example.com",
     service: "com.example.app",
-    accessGroup: .identifier("group.com.example.shared")
+    accessGroup: "group.com.example.shared"
 )
 
-// Query: Use QueryScope<String>
+// Query: Use AccessGroupScope
 let password = try await Keychain.GenericPassword.get(
     account: "user@example.com",
     service: "com.example.app",
-    accessGroup: .specific("group.com.example.shared")
+    accessGroup: "group.com.example.shared"
 )
 
 // Delete across all groups
 try await Keychain.GenericPassword.delete(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.app"),
+    account: "user@example.com",
+    service: "com.example.app",
     accessGroup: .any  // Searches all access groups
 )
 ```
@@ -71,7 +71,7 @@ let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "new-passwo
 try await Keychain.InternetPassword.updateMatching(
     account: "user@example.com",
     server: "api.example.com",
-    port: .specific(443),  // Matches only port 443
+    port: 443,  // Matches only port 443
     to: newPassword
 )
 ```
@@ -87,8 +87,8 @@ try await Keychain.InternetPassword.updateMatching(
     account: "user@example.com",
     server: "api.example.com",
     protocol: .specific(.https),
-    port: .specific(443),
-    path: .specific("/api/v2"),
+    port: 443,
+    path: "/api/v2",
     to: newPassword
 )
 ```

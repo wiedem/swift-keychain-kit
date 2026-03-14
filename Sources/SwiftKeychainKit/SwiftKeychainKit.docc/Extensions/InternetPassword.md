@@ -54,7 +54,7 @@ let httpsPassword = try await Keychain.InternetPassword.queryOne(
     account: "user@example.com",
     server: "api.example.com",
     protocol: .specific(.https),
-    port: .specific(443)
+    port: 443
 )
 ```
 
@@ -67,7 +67,7 @@ Use ``query(account:server:protocol:authenticationType:port:path:securityDomain:
 ```swift
 let passwords = try await Keychain.InternetPassword.query(
     account: .any,
-    server: .specific("api.example.com"),
+    server: "api.example.com",
     skipItemsIfUIRequired: true,
     limit: .unlimited
 )
@@ -102,8 +102,8 @@ Remove a specific password:
 ```swift
 // Deletes all passwords matching the criteria
 try await Keychain.InternetPassword.delete(
-    account: .specific("user@example.com"),
-    server: .specific("api.example.com"),
+    account: "user@example.com",
+    server: "api.example.com",
     accessGroup: .any
 )
 ```
@@ -114,7 +114,7 @@ Get metadata about stored passwords and obtain item references for subsequent op
 
 ```swift
 let attributes = try await Keychain.InternetPassword.queryAttributes(
-    server: .specific("api.example.com"),
+    server: "api.example.com",
     limit: .unlimited
 )
 

@@ -23,7 +23,7 @@ guard let certificate = SecCertificateCreateWithData(nil, certData as CFData) el
 
 try await Keychain.Certificates.add(
     certificate,
-    label: .custom("Root CA")
+    label: "Root CA"
 )
 ```
 
@@ -47,7 +47,8 @@ let serialData = // ... serial number data
 
 let certificates = try await Keychain.Certificates.query(
     issuer: .specific(issuerData),
-    serialNumber: .specific(serialData)
+    serialNumber: .specific(serialData),
+    limit: .unlimited
 )
 if let certificate = certificates.first {
     // Found the specific certificate
@@ -71,7 +72,7 @@ Get metadata about a certificate:
 
 ```swift
 let attributes = try await Keychain.Certificates.queryAttributes(
-    label: .specific("Root CA")
+    label: "Root CA"
 )
 
 if let attr = attributes.first {
@@ -92,7 +93,7 @@ Remove certificates by label:
 ```swift
 // Deletes all certificates matching the criteria
 try await Keychain.Certificates.delete(
-    label: .specific("Root CA")
+    label: "Root CA"
 )
 ```
 
@@ -111,7 +112,7 @@ These attributes are automatically derived from the certificate when you add it 
 When adding certificates, you can specify how labels are handled using ``Keychain/DefaultableLabel``:
 
 - `.default`: Let the Keychain automatically derive a label from the certificate's subject
-- `.custom("My Label")`: Provide an explicit, user-visible label
+- `.custom("My Label")` or `"My Label"`: Provide an explicit, user-visible label
 
 Labels are useful for:
 - Displaying certificates in a user interface

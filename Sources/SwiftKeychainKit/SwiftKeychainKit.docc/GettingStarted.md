@@ -93,8 +93,8 @@ and an access group scope:
 
 ```swift
 try await Keychain.GenericPassword.delete(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.myapp"),
+    account: "user@example.com",
+    service: "com.example.myapp",
     accessGroup: .any
 )
 ```

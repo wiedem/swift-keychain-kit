@@ -51,7 +51,7 @@ the right one based on its metadata:
 
 ```swift
 let allPasswords = try await Keychain.GenericPassword.queryAttributes(
-    service: .specific("com.example.app"),
+    service: "com.example.app",
     limit: .unlimited
 )
 
@@ -81,8 +81,8 @@ try await Keychain.GenericPassword.delete(itemReference: itemReference)
 
 // Could match multiple items, e.g. if the same account and service exist in more than one access group
 try await Keychain.GenericPassword.delete(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.app"),
+    account: "user@example.com",
+    service: "com.example.app",
     accessGroup: .any
 )
 ```

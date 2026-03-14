@@ -47,3 +47,22 @@ public extension Keychain {
         case identifier(String)
     }
 }
+
+extension Keychain.ProviderAccessGroup: ExpressibleByUnicodeScalarLiteral {
+    public init(unicodeScalarLiteral value: String) {
+        self = .identifier(value)
+    }
+}
+
+extension Keychain.ProviderAccessGroup: ExpressibleByExtendedGraphemeClusterLiteral {
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self = .identifier(value)
+    }
+}
+
+extension Keychain.ProviderAccessGroup: ExpressibleByStringLiteral {
+    /// Creates an access group targeting a specific identifier from a string literal.
+    public init(stringLiteral value: String) {
+        self = .identifier(value)
+    }
+}

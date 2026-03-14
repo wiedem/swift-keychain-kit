@@ -20,6 +20,25 @@ public extension Keychain {
     }
 }
 
+extension Keychain.DefaultableLabel: ExpressibleByUnicodeScalarLiteral {
+    public init(unicodeScalarLiteral value: String) {
+        self = .custom(value)
+    }
+}
+
+extension Keychain.DefaultableLabel: ExpressibleByExtendedGraphemeClusterLiteral {
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self = .custom(value)
+    }
+}
+
+extension Keychain.DefaultableLabel: ExpressibleByStringLiteral {
+    /// Creates a custom label from a string literal.
+    public init(stringLiteral value: String) {
+        self = .custom(value)
+    }
+}
+
 extension Keychain.DefaultableLabel {
     var value: String? {
         switch self {

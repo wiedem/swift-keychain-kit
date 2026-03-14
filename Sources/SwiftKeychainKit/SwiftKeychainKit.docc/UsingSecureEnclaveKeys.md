@@ -67,8 +67,8 @@ let privateKey: SecureEnclave.P256.Signing.PrivateKey? = try await Keychain.Gene
 
 ```swift
 try await Keychain.GenericPassword.delete(
-    account: .specific("com.example.myapp.signing-key"),
-    service: .specific("com.example.myapp"),
+    account: "com.example.myapp.signing-key",
+    service: "com.example.myapp",
     accessGroup: .any
 )
 ```

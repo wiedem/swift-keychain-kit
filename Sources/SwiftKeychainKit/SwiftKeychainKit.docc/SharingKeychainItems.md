@@ -36,7 +36,7 @@ There are two important differences to Keychain access groups:
 
 ## Storing Items in a Shared Group
 
-Use `.identifier()` to store an item in a specific access group:
+Use a string literal or `.identifier()` to store an item in a specific access group:
 
 ```swift
 let password = try SecretData.makeByCopyingUTF8(fromUnsafeString: "shared-secret")
@@ -45,7 +45,7 @@ try await Keychain.GenericPassword.add(
     password,
     account: "user@example.com",
     service: "com.example.app",
-    accessGroup: .identifier("ABCDE12345.com.example.shared")
+    accessGroup: "ABCDE12345.com.example.shared"
 )
 ```
 
@@ -61,7 +61,7 @@ group directly:
 let password = try await Keychain.GenericPassword.get(
     account: "user@example.com",
     service: "com.example.app",
-    accessGroup: .identifier("ABCDE12345.com.example.shared")
+    accessGroup: "ABCDE12345.com.example.shared"
 )
 ```
 
@@ -71,14 +71,14 @@ For operations that can match multiple items (`query`, `delete`), use
 ```swift
 // Search only in a specific group
 let passwords = try await Keychain.GenericPassword.query(
-    service: .specific("com.example.app"),
-    accessGroup: .specific("ABCDE12345.com.example.shared"),
+    service: "com.example.app",
+    accessGroup: "ABCDE12345.com.example.shared",
     limit: .unlimited
 )
 
 // Search across all of the app's access groups
 let allPasswords = try await Keychain.GenericPassword.query(
-    service: .specific("com.example.app"),
+    service: "com.example.app",
     accessGroup: .any,
     limit: .unlimited
 )

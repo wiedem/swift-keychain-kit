@@ -82,8 +82,8 @@ let retrievedKey: Curve25519.Signing.PrivateKey? = try await Keychain.GenericPas
 
 ```swift
 try await Keychain.GenericPassword.delete(
-    account: .specific("com.example.myapp.curve25519-key"),
-    service: .specific("com.example.myapp"),
+    account: "com.example.myapp.curve25519-key",
+    service: "com.example.myapp",
     accessGroup: .any
 )
 ```

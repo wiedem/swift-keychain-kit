@@ -56,8 +56,8 @@ try await Keychain.GenericPassword.update(
 
 ```swift
 try await Keychain.GenericPassword.delete(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.app"),
+    account: "user@example.com",
+    service: "com.example.app",
     accessGroup: .any
 )
 ```
@@ -68,7 +68,7 @@ Get metadata about stored passwords and obtain item references for subsequent op
 
 ```swift
 let attributes = try await Keychain.GenericPassword.queryAttributes(
-    service: .specific("com.example.app"),
+    service: "com.example.app",
     limit: .unlimited
 )
 

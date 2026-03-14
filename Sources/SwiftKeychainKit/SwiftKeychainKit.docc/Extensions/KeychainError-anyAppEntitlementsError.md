@@ -50,8 +50,8 @@ If you need details about the failure, match against the error code directly to 
 ```swift
 // Searches across all access groups without resolving the default group
 let passwords = try await Keychain.GenericPassword.query(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.app"),
+    account: "user@example.com",
+    service: "com.example.app",
     accessGroup: .any
 )
 ```

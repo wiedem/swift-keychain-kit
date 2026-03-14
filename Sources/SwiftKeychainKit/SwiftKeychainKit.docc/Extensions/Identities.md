@@ -37,7 +37,7 @@ guard status == errSecSuccess,
 // Store in Keychain
 try await Keychain.Identities.add(
     identity,
-    label: .custom("Client Authentication")
+    label: "Client Authentication"
 )
 ```
 
@@ -83,7 +83,8 @@ let serialData = // ... serial number data
 
 let identities = try await Keychain.Identities.query(
     issuer: .specific(issuerData),
-    serialNumber: .specific(serialData)
+    serialNumber: .specific(serialData),
+    limit: .unlimited
 )
 if let identity = identities.first {
     // Found the specific identity
@@ -125,7 +126,7 @@ The ``Attributes`` struct includes attributes from both the certificate and the 
 
 ```swift
 let attributes = try await Keychain.Identities.queryAttributes(
-    label: .specific("Client Authentication")
+    label: "Client Authentication"
 )
 
 if let attr = attributes.first {
@@ -146,7 +147,7 @@ Remove identities by label:
 ```swift
 // Deletes all identities matching the criteria
 try await Keychain.Identities.delete(
-    label: .specific("Client Authentication")
+    label: "Client Authentication"
 )
 ```
 
