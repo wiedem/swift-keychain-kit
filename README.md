@@ -106,7 +106,7 @@ Add the dependency to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/wiedem/swift-keychain-kit.git", from: "1.3.0")
+    .package(url: "https://github.com/wiedem/swift-keychain-kit.git", from: "1.5.0")
 ]
 ```
 
