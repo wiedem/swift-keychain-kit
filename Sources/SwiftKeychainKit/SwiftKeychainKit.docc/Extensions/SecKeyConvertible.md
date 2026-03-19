@@ -12,6 +12,16 @@ stored in the Keychain.
 
 ## Conforming to SecKeyConvertible
 
+The ``SecKeyInitializable/init(secKey:)`` initializer typically calls
+[SecKeyCopyExternalRepresentation](https://developer.apple.com/documentation/security/seckeycopyexternalrepresentation(_:_:))
+to obtain the key's data, then parses it into the conforming type. The returned data is an immutable `CFData` object
+that cannot be zeroized after use, so the key material may remain in memory until the object is deallocated. Keys that
+are not marked as extractable, as well as Secure Enclave keys, cannot be exported this way and will produce an error.
+
+The ``SecKeyRepresentable/makeSecKey()`` method typically calls
+[SecKeyCreateWithData](https://developer.apple.com/documentation/security/seckeycreatewithdata(_:_:_:))
+to create a [SecKey](https://developer.apple.com/documentation/security/seckey) from the key's data representation.
+
 Implement both the ``SecKeyInitializable/init(secKey:)`` initializer and ``SecKeyRepresentable/makeSecKey()`` method:
 
 ```swift
@@ -60,3 +70,4 @@ SwiftKeychainKit provides `SecKeyConvertible` conformance for all [CryptoKit](ht
 ## See Also
 
 - ``Keychain/Keys``
+- [Storing Keys as Data](https://developer.apple.com/documentation/security/storing-keys-as-data)
