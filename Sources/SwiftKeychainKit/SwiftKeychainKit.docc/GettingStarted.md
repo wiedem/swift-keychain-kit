@@ -99,6 +99,9 @@ try await Keychain.GenericPassword.delete(
 )
 ```
 
+You can also delete items by their ``ItemReference``, as shown in
+<doc:UsingItemReferences>.
+
 ## Access Control with Biometry
 
 Require biometric authentication for sensitive data:
