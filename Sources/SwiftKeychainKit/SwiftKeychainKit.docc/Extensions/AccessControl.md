@@ -16,10 +16,10 @@ try await Keychain.Keys.addPrivateKey(
 
 ### With Biometry
 
-Use the initializer for custom setups with access constraints:
+Use the factory method for custom setups with access constraints:
 
 ```swift
-let accessControl = Keychain.AccessControl(
+let accessControl = Keychain.AccessControl.make(
     accessibility: .whenUnlockedThisDeviceOnly,
     constraint: .biometryAny
 )

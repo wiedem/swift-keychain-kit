@@ -33,8 +33,9 @@ do {
 ```swift
 // Delete returns a boolean and does not throw itemNotFound
 let deleted = try await Keychain.GenericPassword.delete(
-    account: .specific("user@example.com"),
-    service: .specific("com.example.app")
+    account: "user@example.com",
+    service: "com.example.app",
+    accessGroup: .any
 )
 if deleted == false {
     print("Item was already deleted or never existed")

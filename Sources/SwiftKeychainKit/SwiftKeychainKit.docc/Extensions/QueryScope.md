@@ -15,7 +15,7 @@ For **add operations**, use ``Keychain/AccessGroup`` to specify:
 - `.default` - Use the app's default access group
 - `.identifier("...")` - Use a specific access group
 
-For **query, update, and delete operations**, use `QueryScope<String>` for the `accessGroup` parameter:
+For **query, update, and delete operations**, use ``Keychain/AccessGroupScope`` for the `accessGroup` parameter:
 - `.any` - Search across all access groups
 - `.specific("group.identifier")` - Target a specific access group
 
@@ -94,11 +94,6 @@ try await Keychain.InternetPassword.updateMatching(
 ```
 
 ## Topics
-
-### AccessGroup Cases
-
-- ``Keychain/ProviderAccessGroup/default``
-- ``Keychain/ProviderAccessGroup/identifier(_:)``
 
 ### QueryScope Cases
 

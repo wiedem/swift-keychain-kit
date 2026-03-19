@@ -19,8 +19,6 @@ public extension Keychain.Certificates {
     ///
     /// - Throws: ``KeychainError`` for Keychain operation failures.
     ///
-    /// - Note: Security Consideration: The returned certificate may contain sensitive information.
-    /// Minimize its lifetime and avoid unnecessary copies.
     static func get(
         itemReference: ItemReference<Self>,
         skipIfUIRequired: Bool = false,

@@ -87,7 +87,7 @@ let tag = "com.example.myapp.secure-key".data(using: .utf8)!
 
 let privateKey = try await Keychain.SecureEnclaveKeys.generate(
     applicationTag: tag,
-    accessControl: .init(
+    accessControl: .make(
         accessibility: .whenUnlockedThisDeviceOnly,
         constraint: .biometryAny
     )

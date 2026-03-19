@@ -12,8 +12,8 @@ public extension Keychain.GenericPassword {
     /// - Parameters:
     ///   - account: The account name for this password.
     ///   - service: The service name for this password.
-    ///   - accessGroup: The access group scope to search in.
-    ///   - synchronizable: The synchronization scope to match.
+    ///   - accessGroup: The access group identifier. Defaults to `.default`.
+    ///   - synchronizable: Whether to query for a synchronized password. Defaults to `false`.
     ///   - skipIfUIRequired: If `true`, the item is skipped (returns `nil`) if authentication UI would be required. If
     ///     `false` (default), authentication UI may be presented to the user.
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)
@@ -62,8 +62,8 @@ public extension Keychain.GenericPassword {
     /// - Parameters:
     ///   - account: The account name for this password.
     ///   - service: The service name for this password.
-    ///   - accessGroup: The access group scope to search in.
-    ///   - synchronizable: The synchronization scope to match.
+    ///   - accessGroup: The access group identifier. Defaults to `.default`.
+    ///   - synchronizable: Whether to query for a synchronized password. Defaults to `false`.
     ///   - skipIfUIRequired: If `true`, the item is skipped (returns `nil`) if authentication UI would be required. If
     ///     `false` (default), authentication UI may be presented to the user.
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)

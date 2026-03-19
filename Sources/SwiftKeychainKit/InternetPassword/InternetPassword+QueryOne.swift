@@ -19,7 +19,7 @@ public extension Keychain.InternetPassword {
     ///   - portScope: The port number to match. Defaults to matching any port.
     ///   - pathScope: The path to match. Defaults to matching any path.
     ///   - securityDomainScope: The security domain to match. Defaults to matching any domain.
-    ///   - accessGroupScope: The access group scope to search in. Defaults to searching in all access groups.
+    ///   - accessGroupScope: The access group scope to search in. Defaults to the app's default access group.
     ///   - synchronizable: Whether to query for a synchronized password. Defaults to `false`.
     ///   - skipIfUIRequired: If `true`, the item is skipped (returns `nil`) if authentication UI would be required. If
     ///     `false` (default), authentication UI may be presented to the user.

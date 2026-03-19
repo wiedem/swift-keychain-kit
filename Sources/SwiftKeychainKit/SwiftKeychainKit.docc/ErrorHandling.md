@@ -32,8 +32,6 @@ do {
         service: "com.example.app",
         to: newPassword
     )
-} catch KeychainError.itemNotFound {
-    print("Item not found")
 } catch {
     print("Unexpected error: \(error)")
 }

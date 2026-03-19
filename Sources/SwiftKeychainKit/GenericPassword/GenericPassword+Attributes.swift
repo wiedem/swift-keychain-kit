@@ -46,8 +46,10 @@ public extension Keychain.GenericPassword {
     /// Fetches metadata for entries identified by the specified criteria.
     ///
     /// - Parameters:
-    ///   - accountScope: The account name for this password.
-    ///   - serviceScope: The service name for this password.
+    ///   - accountScope: The account name scope. Use `.any` to match any account, or `.specific(name)` to match only
+    ///     that account. Defaults to `.any`.
+    ///   - serviceScope: The service name scope. Use `.any` to match any service, or `.specific(name)` to match only
+    ///     that service. Defaults to `.any`.
     ///   - accessGroupScope: The access group scope to search in. Use `.specific(...)` to target a specific access
     ///     group or `.any` to search across all access groups. Defaults to `.any`.
     ///   - synchronizableScope: The synchronization scope to match. Defaults to `.notSynchronized`.

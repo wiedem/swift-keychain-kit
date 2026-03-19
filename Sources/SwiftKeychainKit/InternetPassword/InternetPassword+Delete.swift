@@ -16,11 +16,16 @@ public extension Keychain.InternetPassword {
     ///     account. Defaults to `.any`.
     ///   - server: The server name scope. Use `.any` to match any server, or `.specific(name)` to match only that
     ///     server. Defaults to `.any`.
-    ///   - protocol: The network protocol to match. Defaults to `nil`.
-    ///   - authenticationType: The authentication type to match. Defaults to `nil`.
-    ///   - port: The port number to match. Defaults to `nil`.
-    ///   - path: The path on the server to match. Defaults to `nil`.
-    ///   - securityDomain: The security domain to match. Defaults to `nil`.
+    ///   - protocol: The network protocol scope. Use `.any` to match any protocol, or `.specific(value)` to match
+    ///     only that protocol. Defaults to `.any`.
+    ///   - authenticationType: The authentication type scope. Use `.any` to match any type, or `.specific(value)` to
+    ///     match only that type. Defaults to `.any`.
+    ///   - port: The port number scope. Use `.any` to match any port, or `.specific(number)` to match only that
+    ///     port. Defaults to `.any`.
+    ///   - path: The path scope. Use `.any` to match any path, or `.specific(value)` to match only that
+    ///     path. Defaults to `.any`.
+    ///   - securityDomain: The security domain scope. Use `.any` to match any domain, or `.specific(value)` to
+    ///     match only that domain. Defaults to `.any`.
     ///   - accessGroup: The access group scope of the entries to delete. Use `.specific(...)` to target a specific
     ///     access group or `.any` to target entries across all access groups. Defaults to `.any`.
     ///   - synchronizable: The synchronization scope to match. Defaults to `.notSynchronized`.
@@ -71,11 +76,16 @@ public extension Keychain.InternetPassword {
     ///     account. Defaults to `.any`.
     ///   - server: The server name scope. Use `.any` to match any server, or `.specific(name)` to match only that
     ///     server. Defaults to `.any`.
-    ///   - protocol: The network protocol to match. Defaults to `nil`.
-    ///   - authenticationType: The authentication type to match. Defaults to `nil`.
-    ///   - port: The port number to match. Defaults to `nil`.
-    ///   - path: The path on the server to match. Defaults to `nil`.
-    ///   - securityDomain: The security domain to match. Defaults to `nil`.
+    ///   - protocol: The network protocol scope. Use `.any` to match any protocol, or `.specific(value)` to match
+    ///     only that protocol. Defaults to `.any`.
+    ///   - authenticationType: The authentication type scope. Use `.any` to match any type, or `.specific(value)` to
+    ///     match only that type. Defaults to `.any`.
+    ///   - port: The port number scope. Use `.any` to match any port, or `.specific(number)` to match only that
+    ///     port. Defaults to `.any`.
+    ///   - path: The path scope. Use `.any` to match any path, or `.specific(value)` to match only that
+    ///     path. Defaults to `.any`.
+    ///   - securityDomain: The security domain scope. Use `.any` to match any domain, or `.specific(value)` to
+    ///     match only that domain. Defaults to `.any`.
     ///   - accessGroup: The access group scope of the entries to delete. Use `.specific(...)` to target a specific
     ///     access group or `.any` to target entries across all access groups. Defaults to `.any`.
     ///   - synchronizable: The synchronization scope to match. Defaults to `.notSynchronized`.

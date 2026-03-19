@@ -10,15 +10,14 @@ public extension Keychain.Keys {
     ///
     /// - Parameters:
     ///   - keyType: The type and class of key to search for.
-    ///   - applicationTag: The application tag scope. Use `.any` to match any tag, or `.specific(data)` to match only
-    ///     that tag. Defaults to `.any`.
+    ///   - applicationTag: The application tag for this key.
     ///   - applicationLabelScope: The application label scope. Use `.any` to match any label, or `.specific(data)` to match
     ///     only that label. Defaults to `.any`.
     ///   - keySizeInBitsScope: The key size scope. Use `.any` to match any size, or `.specific(bits)` to match only that
     ///     size. Defaults to `.any`.
     ///   - accessGroupScope: The access group scope to search in. Use `.specific(...)` to target a specific access group or
     ///     `.any` to search across all access groups. Defaults to `.default`.
-    ///   - synchronizable: The synchronization scope to match. Defaults to `.notSynchronized`.
+    ///   - synchronizable: Whether to query for a synchronized key. Defaults to `false`.
     ///   - skipIfUIRequired: If `true`, the item is skipped (returns `nil`) if authentication UI would be required. If
     ///     `false` (default), authentication UI may be presented to the user.
     ///   - authenticationContext: An [LAContext](https://developer.apple.com/documentation/localauthentication/lacontext)

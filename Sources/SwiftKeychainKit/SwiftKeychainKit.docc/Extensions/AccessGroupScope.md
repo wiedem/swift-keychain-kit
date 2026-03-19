@@ -26,12 +26,11 @@ let passwords = try await Keychain.GenericPassword.query(
 Limit your search to a particular access group for shared items:
 
 ```swift
-// Search only in a shared access group
-let password = try await Keychain.GenericPassword.get(
+// Delete only in a shared access group
+try await Keychain.GenericPassword.delete(
     account: "user@example.com",
     service: "com.example.app",
-    accessGroup: "ABCDE12345.com.example.shared",
-    synchronizable: false
+    accessGroup: "ABCDE12345.com.example.shared"
 )
 ```
 

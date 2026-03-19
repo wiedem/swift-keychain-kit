@@ -19,7 +19,7 @@ public extension Keychain.Keys {
 
         /// A symmetric key used for both encryption and decryption.
         ///
-        /// Symmetric keys must be kept secret and are used with algorithms like symmetric keys where the same key encrypts and
+        /// Symmetric keys must be kept secret and are used with algorithms like AES, where the same key encrypts and
         /// decrypts data.
         case symmetric
     }

@@ -91,12 +91,10 @@ do {
     try await Keychain.GenericPassword.add(password, account: "user", service: "app")
 } catch KeychainError.duplicateItem {
     // Item already exists
-} catch KeychainError.itemNotFound {
-    // Item not found
 }
 ```
 
-SwiftKeychainKit does not conform to `LocalizedError`, giving you full control over user-facing messages. See the [error handling guide](https://wiedem.github.io/swift-keychain-kit/documentation/swiftkeychainkit/errorhandling) for patterns including localization.
+`KeychainError` does not conform to `LocalizedError`, giving you full control over user-facing messages. See the [error handling guide](https://wiedem.github.io/swift-keychain-kit/documentation/swiftkeychainkit/errorhandling) for patterns including localization.
 
 ## Installation
 
@@ -129,7 +127,7 @@ Or add it in Xcode:
 
 - iOS 15.0+ / macOS 12.0+
 - Swift 6.2+
-- Xcode 16.3+
+- Xcode 26+
 
 ## Testing
 
@@ -150,11 +148,6 @@ Full DocC documentation is available online:
 Build documentation locally in Xcode:
 ```
 Product → Build Documentation
-```
-
-Or via Swift Package Manager:
-```bash
-swift package generate-documentation
 ```
 
 ## Contributing

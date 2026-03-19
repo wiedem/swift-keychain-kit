@@ -66,8 +66,8 @@ If you need to handle multiple results, use the full `query()` method instead:
 
 ```swift
 let passwords = try await Keychain.InternetPassword.query(
-    account: .specific("user@example.com"),
-    server: .specific("example.com"),
+    account: "user@example.com",
+    server: "example.com",
     limit: .unlimited
 )
 

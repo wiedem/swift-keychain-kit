@@ -20,7 +20,7 @@ do {
     )
 } catch KeychainError.duplicateItem {
     // Item already exists, update it instead
-    let newPassword = try password.duplicate()
+    let newPassword = try SecretData.makeByCopyingUTF8(fromUnsafeString: "secret")
     try await Keychain.GenericPassword.update(
         account: "user@example.com",
         service: "com.example.app",
